@@ -1,0 +1,22 @@
+{
+  "name": "contentful-resolve-response",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "buster-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:contentful/contentful-resolve-response.git"
+  },
+  "devDependencies": {
+    "buster": "~0.7.13"
+  },
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com:contentful/contentful-resolve-response/issues"
+  },
+  "homepage": "https://github.com:contentful/contentful-resolve-response"
+}

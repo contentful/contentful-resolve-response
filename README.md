@@ -1,0 +1,3 @@
+# contentful-resolve-response
+
+
