@@ -23,12 +23,12 @@ var response = {
   }
 };
 
-console.log(resolveResponse(response));
-```
+var items = resolveResponse(response)
 
-Produces:
+console.log(items);
 
-``` json
+// produces:
+
 [
   {
    // Value stays the same
