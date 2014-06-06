@@ -11,12 +11,15 @@
     "url": "git@github.com:contentful/contentful-resolve-response.git"
   },
   "devDependencies": {
-    "buster": "~0.7.13"
+    "buster": "^0.7.13"
   },
   "author": "Contentful GmbH",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com:contentful/contentful-resolve-response/issues"
   },
-  "homepage": "https://github.com:contentful/contentful-resolve-response"
+  "homepage": "https://github.com:contentful/contentful-resolve-response",
+  "dependencies": {
+    "lodash-contrib": "^241.4.7"
+  }
 }

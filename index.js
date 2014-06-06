@@ -8,7 +8,7 @@ function resolveResponse(response) {
   walkMutate(response, isLink, function(link) {
     return getLink(response, link) || link;
   });
-  return response.items;
+  return response.items || [];
 }
 
 function isLink(object) {
