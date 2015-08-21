@@ -18,8 +18,5 @@
   "bugs": {
     "url": "https://github.com:contentful/contentful-resolve-response/issues"
   },
-  "homepage": "https://github.com:contentful/contentful-resolve-response",
-  "dependencies": {
-    "lodash-contrib": "^241.4.7"
-  }
+  "homepage": "https://github.com:contentful/contentful-resolve-response"
 }
