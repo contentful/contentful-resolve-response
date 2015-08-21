@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash-contrib');
-
 module.exports = resolveResponse;
 
 function resolveResponse(response) {
@@ -12,7 +10,7 @@ function resolveResponse(response) {
 }
 
 function isLink(object) {
-  return _.getPath(object, ['sys', 'type']) === 'Link';
+  return object && object.sys && object.sys.type === 'Link';
 }
 
 function getLink(response, link) {
@@ -21,20 +19,30 @@ function getLink(response, link) {
   var pred = function(resource) {
     return resource.sys.type === type && resource.sys.id === id;
   };
-  return _.find(response.items, pred) ||
-    response.includes && _.find(response.includes[type], pred);
+  return find(response.items, pred) ||
+    response.includes && find(response.includes[type], pred);
 }
 
 function walkMutate(input, pred, mutator) {
   if (pred(input))
     return mutator(input);
 
-  if (_.isArray(input) || _.isObject(input)) {
-    _.each(input, function(item, key) {
-      input[key] = walkMutate(item, pred, mutator);
-    });
+  if (input && typeof input == 'object') {
+    for (var key in input) {
+      if (input.hasOwnProperty(key)) {
+        input[key] = walkMutate(input[key], pred, mutator);
+      }
+    }
     return input;
   }
 
   return input;
+}
+
+function find (array, pred) {
+  for (var i = 0, len = array.length; i < len; i++) {
+    if (pred(array[i])) {
+      return array[i];
+    }
+  }
 }
