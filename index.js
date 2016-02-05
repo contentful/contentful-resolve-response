@@ -1,8 +1,11 @@
 'use strict';
 
+var clone = require('clone');
+
 module.exports = resolveResponse;
 
 function resolveResponse(response) {
+  response = clone(response);
   walkMutate(response, isLink, function(link) {
     return getLink(response, link) || link;
   });

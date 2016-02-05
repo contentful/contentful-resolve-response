@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com:contentful/contentful-resolve-response/issues"
   },
-  "homepage": "https://github.com:contentful/contentful-resolve-response"
+  "homepage": "https://github.com:contentful/contentful-resolve-response",
+  "dependencies": {
+    "clone": "^1.0.2"
+  }
 }

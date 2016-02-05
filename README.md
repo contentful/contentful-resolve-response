@@ -42,6 +42,5 @@ console.log(items);
 
 Note that:
 
-- The original object passed in will be mutated (Boo! PRs welcome!)
 - Multiple links to the same resource will point to the same object
 - Circular references are possible
