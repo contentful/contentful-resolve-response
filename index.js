@@ -4,45 +4,57 @@ var clone = require('clone');
 
 module.exports = resolveResponse;
 
+/**
+ * Response should be an object with an `items` array and an `includes` object.
+ * The `items` array contains entities, which can have links and sub links.
+ * The `includes` object contains lists of linked entities for each entity type.
+ */
 function resolveResponse(response) {
-  response = clone(response);
-  walkMutate(response, isLink, function(link) {
-    return getLink(response, link) || link;
-  });
-  return response.items || [];
+  var items = clone(response.items);
+  var includes = clone(response.includes || {});
+  return walk(
+    items,
+    function(link) {
+      return getLinkFromSources(link, includes);
+    }
+  ) || [];
 }
 
-function isLink(object) {
-  return object && object.sys && object.sys.type === 'Link';
+/**
+ * Walks an object. If object is a link, replaces it with the link reference
+ * otherwise recurses on each value of the current input object
+ */
+function walk(input, linkLookup) {
+  if(Array.isArray(input)) {
+    return input.map(function (val) {
+      return walk(val, linkLookup);
+    });
+  }
+
+  if(typeof input == 'object'){
+    if(isLink(input)){
+      var resolvedInput = linkLookup(input);
+      return resolvedInput ? walk(resolvedInput, linkLookup) : input;
+    }
+
+    for(var key in input){
+      input[key] = walk(input[key], linkLookup);
+    }
+  }
+  return input;
 }
 
-function getLink(response, link) {
+function getLinkFromSources(link, includes) {
   var type = link.sys.linkType;
   var id = link.sys.id;
   var pred = function(resource) {
     return resource.sys.type === type && resource.sys.id === id;
   };
-  return find(response.items, pred) ||
-    response.includes && find(response.includes[type], pred);
+  //return find(items, pred) ||
+  return find(includes[type], pred);
 }
 
-function walkMutate(input, pred, mutator) {
-  if (pred(input))
-    return mutator(input);
-
-  if (input && typeof input == 'object') {
-    for (var key in input) {
-      if (input.hasOwnProperty(key)) {
-        input[key] = walkMutate(input[key], pred, mutator);
-      }
-    }
-    return input;
-  }
-
-  return input;
-}
-
-function find (array, pred) {
+function find(array, pred) {
   if (!array) {
     return;
   }
@@ -51,4 +63,8 @@ function find (array, pred) {
       return array[i];
     }
   }
+}
+
+function isLink(object) {
+  return object && object.sys && object.sys.type === 'Link';
 }

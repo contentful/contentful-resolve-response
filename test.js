@@ -56,7 +56,14 @@ test('links in response, with matching include should resolve', function(t) {
       Animal: [
         {
           sys: {type: 'Animal', id: 'oink'},
-          fields: {name: 'Pig'}
+          fields: {
+            name: 'Pig',
+            friend: {sys: {type: 'Link', linkType: 'Animal', id: 'groundhog'}}
+          }
+        },
+        {
+          sys: {type: 'Animal', id: 'groundhog'},
+          fields: {name: 'Phil'}
         },
         {
           sys: {type: 'Animal', id: 'parrot'},
@@ -71,9 +78,11 @@ test('links in response, with matching include should resolve', function(t) {
   };
 
   var items = resolveResponse(response);
-  t.looseEquals(items[0].fields.animal, response.includes.Animal[0], 'pig');
-  t.looseEquals(items[1].fields.birds[0], response.includes.Animal[1], 'parrot');
-  t.looseEquals(items[1].fields.birds[2], response.includes.Animal[2], 'aussie parrot');
+  t.looseEquals(items[0].fields.animal.sys, response.includes.Animal[0].sys, 'pig');
+  t.looseEquals(items[0].fields.animal.fields.friend.sys, response.includes.Animal[1].sys, 'groundhog');
+  t.looseEquals(items[1].fields.birds[0], response.includes.Animal[2], 'parrot');
+  t.looseEquals(items[1].fields.birds[1].sys.type, 'Link', 'middle parrot not resolved');
+  t.looseEquals(items[1].fields.birds[2], response.includes.Animal[3], 'aussie parrot');
   t.equals(response.items[0].fields.animal.sys.type, 'Link', 'original response is not mutated');
   t.end();
 });
