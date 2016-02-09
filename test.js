@@ -86,3 +86,41 @@ test('links in response, with matching include should resolve', function(t) {
   t.equals(response.items[0].fields.animal.sys.type, 'Link', 'original response is not mutated');
   t.end();
 });
+
+
+test.only('links in response, with circular references', function(t) {
+  var response = {
+    items: [
+      {
+        sys: {type: 'Entry'},
+        fields: {
+          animal: {sys: {type: 'Link', linkType: 'Animal', id: 'oink'}}
+        }
+      }
+    ],
+    includes: {
+      Animal: [
+        {
+          sys: {type: 'Animal', id: 'oink'},
+          fields: {name: 'Pig', friend: {sys: {type: 'Link', linkType: 'Animal', id: 'parrot'}}}
+        },
+        {
+          sys: {type: 'Animal', id: 'parrot'},
+          fields: {name: 'Parrot', friend: {sys: {type: 'Link', linkType: 'Animal', id: 'oink'}}}
+        }
+      ]
+    }
+  };
+
+  var items = resolveResponse(response);
+
+  var util = require('util');
+  console.log(util.inspect(items[0], {depth: null}))
+  t.equals(items[0].fields.animal.sys.type, 'Animal', 'first link type');
+  t.equals(items[0].fields.animal.sys.id, 'oink', 'first link id');
+  t.equals(items[0].fields.animal.fields.friend.sys.type, 'Animal', 'sub link type');
+  t.equals(items[0].fields.animal.fields.friend.sys.id, 'parrot', 'sub link id');
+  t.equals(items[0].fields.animal.fields.friend.fields.friend.sys.type, 'Animal', 'sub sub link type');
+  t.equals(items[0].fields.animal.fields.friend.fields.friend.sys.id, 'oink', 'sub sub link id');
+  t.end();
+});
