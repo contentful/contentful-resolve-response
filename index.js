@@ -19,8 +19,15 @@ function getLink (response, link) {
   const pred = function (resource) {
     return resource.sys.type === type && resource.sys.id === id;
   };
-  return find(response.items, pred) ||
-    response.includes && find(response.includes[type], pred);
+
+  const result = find(response.items, pred);
+  const hasResult = Boolean(result);
+
+  if (!hasResult && response.includes) {
+    return find(response.includes[type], pred);
+  }
+
+  return hasResult ? result : undefined;
 }
 
 function walkMutate (input, pred, mutator) {
