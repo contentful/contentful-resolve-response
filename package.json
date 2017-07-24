@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint '**/*.js'",
     "test": "npm run lint && npm run test-unit",
-    "test-unit": "buster-test"
+    "test-unit": "mocha 'test/**/*-test.js'"
   },
   "repository": {
     "type": "git",
@@ -15,12 +15,15 @@
   "devDependencies": {
     "@contentful/eslint-config-backend": "^4.0.0",
     "buster": "^0.7.13",
+    "chai": "^4.1.0",
+    "dirty-chai": "^2.0.1",
     "eslint": "^4.3.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.4.2"
   },
   "author": "Contentful GmbH",
   "license": "MIT",
