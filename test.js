@@ -1,48 +1,48 @@
 'use strict';
 
-var buster = require('buster');
-var assert = buster.assert;
-var resolveResponse = require('./index');
+const buster = require('buster');
+const assert = buster.assert;
+const resolveResponse = require('./index');
 
 buster.testCase('resolveResponse', {
-  'empty response': function() {
-    var response = {};
-    var items = resolveResponse(response);
+  'empty response': function () {
+    const response = {};
+    const items = resolveResponse(response);
     assert.equals(items, []);
   },
 
-  'no links in response': function() {
-    var response = {
+  'no links in response': function () {
+    const response = {
       items: [{
         foo: 'bar'
       }]
     };
-    var items = resolveResponse(response);
+    const items = resolveResponse(response);
     assert.equals(items, response.items);
   },
 
-  'links in response, without matching include should remain': function() {
-    var response = {
+  'links in response, without matching include should remain': function () {
+    const response = {
       items: [
-        {sys: {type: 'Link', linkType: 'Piglet', id: 'oink'}
-      }]
+        { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
+        }]
     };
-    var items = resolveResponse(response);
+    const items = resolveResponse(response);
     assert.equals(items, response.items);
   },
 
-  'links in response, with matching include should resolve': function() {
-    var response = {
+  'links in response, with matching include should resolve': function () {
+    const response = {
       items: [
-        {sys: {type: 'Link', linkType: 'Piglet', id: 'oink'}
-      }],
+        { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
+        }],
       includes: {
         Piglet: [
-          {sys: {type: 'Piglet', id: 'oink'}}
+          { sys: { type: 'Piglet', id: 'oink' } }
         ]
       }
     };
-    var items = resolveResponse(response);
+    const items = resolveResponse(response);
     assert.equals(items[0], response.includes.Piglet[0]);
   }
 });
