@@ -1,59 +1,82 @@
-'use strict';
-
-module.exports = resolveResponse;
-
-function resolveResponse (response) {
-  walkMutate(response, isLink, function (link) {
-    return getLink(response, link) || link;
-  });
+/**
+ * resolveResponse Function
+ * Resolves contentful response to normalized form.
+ * @param response
+ * @return {Array}
+ */
+const resolveResponse = (response) => {
+  walkMutate(response, isLink, (link) => (getLink(response, link) || link));
   return response.items || [];
-}
+};
 
-function isLink (object) {
-  return object && object.sys && object.sys.type === 'Link';
-}
+/**
+ * isLink Function
+ * Checks if the object has sys.type "Link"
+ * @param object
+ */
+const isLink = (object) => object && object.sys && object.sys.type === 'Link';
 
-function getLink (response, link) {
-  const type = link.sys.linkType;
-  const id = link.sys.id;
-  const pred = function (resource) {
-    return resource.sys.type === type && resource.sys.id === id;
-  };
+/**
+ * getLink Function
+ *
+ * @param response
+ * @param link
+ * @return {undefined}
+ */
+const getLink = (response, link) => {
+  const { linkType: type, id } = link.sys;
 
-  const result = find(response.items, pred);
+  const predicate = (resource) => (resource.sys.type === type && resource.sys.id === id);
+
+  const result = findNormalizableArray(response.items, predicate);
+
   const hasResult = Boolean(result);
 
   if (!hasResult && response.includes) {
-    return find(response.includes[type], pred);
+    return findNormalizableArray(response.includes[type], predicate);
   }
-
   return hasResult ? result : undefined;
-}
+};
 
-function walkMutate (input, pred, mutator) {
-  if (pred(input)) {
+/**
+ * walkMutate Function
+ * @param input
+ * @param predicate
+ * @param mutator
+ * @return {*}
+ */
+const walkMutate = (input, predicate, mutator) => {
+  if (predicate(input)) {
     return mutator(input);
   }
 
   if (input && typeof input === 'object') {
     for (const key in input) {
       if (input.hasOwnProperty(key)) {
-        input[key] = walkMutate(input[key], pred, mutator);
+        input[key] = walkMutate(input[key], predicate, mutator);
       }
     }
     return input;
   }
-
   return input;
-}
+};
 
-function find (array, pred) {
+/**
+ * findNormalizableArray
+ *
+ * @param array
+ * @param predicate
+ * @return {*}
+ */
+const findNormalizableArray = (array, predicate) => {
   if (!array) {
     return;
   }
   for (let i = 0, len = array.length; i < len; i++) {
-    if (pred(array[i])) {
+    if (predicate(array[i])) {
       return array[i];
     }
   }
-}
+};
+
+module.exports = resolveResponse;

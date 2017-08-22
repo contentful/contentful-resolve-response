@@ -13,17 +13,17 @@
     "url": "git@github.com:contentful/contentful-resolve-response.git"
   },
   "devDependencies": {
-    "@contentful/eslint-config-backend": "^4.0.0",
-    "buster": "^0.7.13",
-    "chai": "^4.1.0",
+    "@contentful/eslint-config-backend": "^6.0.0",
+    "buster": "^0.7.18",
+    "chai": "^4.1.1",
     "dirty-chai": "^2.0.1",
-    "eslint": "^4.3.0",
+    "eslint": "^4.4.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^3.4.2"
+    "mocha": "^3.5.0"
   },
   "author": "Contentful GmbH",
   "license": "MIT",
