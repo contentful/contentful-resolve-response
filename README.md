@@ -13,30 +13,47 @@ var response = {
   items: [
     {
       someValue: 'wow',
-      someLink: {sys: {type: 'Link', linkType: 'Entry', id: 'suchId'}}
+      someLink: { sys: { type: 'Link', linkType: 'Entry', id: 'suchId' } }
     }
   ],
   includes: {
     Entry: [
-      {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
+      { sys: { type: 'Entry', id: 'suchId' }, very: 'doge' }
     ]
   }
 };
 
 var items = resolveResponse(response)
+// Responds with the original object in the first position and mutated object in the second.
 
 console.log(items);
 
 // produces:
-
 [
-  {
-   // Value stays the same
-    someValue: 'wow',
-
-    // Link gets replaced by the actual object from `includes.Entry`
-    someLink: {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
-  }
+    {
+      items: [
+        {
+          someValue: 'wow',
+          someLink: { sys: { type: 'Link', linkType: 'Entry', id: 'suchId' } }
+        }
+      ],
+      includes: {
+        Entry: [
+          { sys: { type: 'Entry', id: 'suchId' }, very: 'doge' }
+        ]
+      }
+    },
+    [
+      {
+        // Value stays the same
+        someValue: 'wow',
+        
+        // Link gets replaced by the actual object from `includes.Entry`
+        someLink: {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
+      }
+    ]
+  ];
+    
 ]
 ```
 
