@@ -1,24 +1,26 @@
 /**
- * resolveResponse Function
- * Resolves contentful response to normalized form.
- * @param response
- * @return {Object}
- */
-const resolveResponse = (response) => {
-  if (!response.items) {
-    return { response: {}, resolved: [] };
-  }
-  const customObject = Object.assign({}, response);
-  walkMutate(customObject, isLink, (link) => (getLink(customObject, link) || link));
-  return { response, resolved: customObject.items };
-};
-/**
  * isLink Function
  * Checks if the object has sys.type "Link"
  * @param object
  */
 const isLink = (object) => object && object.sys && object.sys.type === 'Link';
-
+/**
+ * findNormalizableArray
+ *
+ * @param array
+ * @param predicate
+ * @return {*}
+ */
+const findNormalizableArray = (array, predicate) => {
+  if (!array) {
+    return;
+  }
+  for (let i = 0, len = array.length; i < len; i++) {
+    if (predicate(array[i])) {
+      return array[i];
+    }
+  }
+};
 /**
  * getLink Function
  *
@@ -65,21 +67,18 @@ const walkMutate = (input, predicate, mutator) => {
 };
 
 /**
- * findNormalizableArray
- *
- * @param array
- * @param predicate
- * @return {*}
+ * resolveResponse Function
+ * Resolves contentful response to normalized form.
+ * @param response
+ * @return {Object}
  */
-const findNormalizableArray = (array, predicate) => {
-  if (!array) {
-    return;
+const resolveResponse = (response) => {
+  if (!response.items) {
+    return { response: {}, resolved: [] };
   }
-  for (let i = 0, len = array.length; i < len; i++) {
-    if (predicate(array[i])) {
-      return array[i];
-    }
-  }
+  const customObject = Object.assign({}, response);
+  walkMutate(customObject, isLink, (link) => (getLink(customObject, link) || link));
+  return { response, resolved: customObject.items };
 };
 
 module.exports = resolveResponse;
