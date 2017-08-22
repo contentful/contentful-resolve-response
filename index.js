@@ -2,15 +2,15 @@
  * resolveResponse Function
  * Resolves contentful response to normalized form.
  * @param response
- * @return {Array}
+ * @return {Object}
  */
 const resolveResponse = (response) => {
   if (!response.items) {
-    return [{}, []];
+    return { response: {}, resolved: [] };
   }
   const customObject = Object.assign({}, response);
   walkMutate(customObject, isLink, (link) => (getLink(customObject, link) || link));
-  return [response, customObject.items];
+  return { response, resolved: customObject.items };
 };
 /**
  * isLink Function
