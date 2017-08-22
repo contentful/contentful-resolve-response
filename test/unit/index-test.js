@@ -5,8 +5,8 @@ describe('resolveResponse', function () {
   it('empty response', function () {
     const response = {};
     const items = resolveResponse(response);
-    assert.deepEqual(items[1], []);
-    assert.deepEqual(items[0], response);
+    assert.deepEqual(items.resolved, []);
+    assert.deepEqual(items.response, response);
   });
 
   it('no links in response', function () {
@@ -16,8 +16,8 @@ describe('resolveResponse', function () {
       }]
     };
     const items = resolveResponse(response);
-    assert.deepEqual(items[1], response.items);
-    assert.deepEqual(items[0], response);
+    assert.deepEqual(items.resolved, response.items);
+    assert.deepEqual(items.response, response);
   });
 
   it('links in response, without matching include should remain', function () {
@@ -28,8 +28,8 @@ describe('resolveResponse', function () {
         }]
     };
     const items = resolveResponse(response);
-    assert.deepEqual(items[1], response.items);
-    assert.deepEqual(items[0], response);
+    assert.deepEqual(items.resolved, response.items);
+    assert.deepEqual(items.response, response);
   });
 
   it('links in response, with matching include should resolve', function () {
@@ -45,7 +45,7 @@ describe('resolveResponse', function () {
       }
     };
     const items = resolveResponse(response);
-    assert.deepEqual(items[1][0], response.includes.Piglet[0]);
-    assert.deepEqual(items[0], response);
+    assert.deepEqual(items.resolved[0], response.includes.Piglet[0]);
+    assert.deepEqual(items.response, response);
   });
 });

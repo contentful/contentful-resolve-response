@@ -29,9 +29,9 @@ var items = resolveResponse(response)
 console.log(items);
 
 // produces:
-[
-    // first element in the array is the original response.
-    {
+{
+    // response key is the original response.
+    response:{
       items: [
         {
           someValue: 'wow',
@@ -44,8 +44,8 @@ console.log(items);
         ]
       }
     },
-    // second element is the resolved object
-    [
+    // resolved key is the re`solved` object
+    resolved:[
       {
         // Value stays the same
         someValue: 'wow',
@@ -54,13 +54,10 @@ console.log(items);
         someLink: {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
       }
     ]
-  ];
-    
-]
+}
 ```
 
 Note that:
 
-- The original object passed in will be mutated (Boo! PRs welcome!)
 - Multiple links to the same resource will point to the same object
-- Circular references are possible
+- Circular references are possible, still!!
