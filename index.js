@@ -5,10 +5,13 @@
  * @return {Array}
  */
 const resolveResponse = (response) => {
-  walkMutate(response, isLink, (link) => (getLink(response, link) || link));
-  return response.items || [];
+  if (!response.items) {
+    return [{}, []];
+  }
+  const customObject = Object.assign({}, response);
+  walkMutate(customObject, isLink, (link) => (getLink(customObject, link) || link));
+  return [response, customObject.items];
 };
-
 /**
  * isLink Function
  * Checks if the object has sys.type "Link"
