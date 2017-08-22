@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('chai').assert;
 const resolveResponse = require('../../index');
 
@@ -23,7 +21,8 @@ describe('resolveResponse', function () {
   it('links in response, without matching include should remain', function () {
     const response = {
       items: [
-        { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
+        {
+          sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
         }]
     };
     const items = resolveResponse(response);
@@ -33,7 +32,8 @@ describe('resolveResponse', function () {
   it('links in response, with matching include should resolve', function () {
     const response = {
       items: [
-        { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
+        {
+          sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
         }],
       includes: {
         Piglet: [
