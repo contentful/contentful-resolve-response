@@ -30,6 +30,7 @@ console.log(items);
 
 // produces:
 [
+    // first element in the array is the original response.
     {
       items: [
         {
@@ -43,6 +44,7 @@ console.log(items);
         ]
       }
     },
+    // second element is the resolved object
     [
       {
         // Value stays the same
