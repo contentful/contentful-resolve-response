@@ -1,3 +1,5 @@
+const { cloneDeep } = require('lodash');
+
 /**
  * isLink Function
  * Checks if the object has sys.type "Link"
@@ -5,13 +7,13 @@
  */
 const isLink = (object) => object && object.sys && object.sys.type === 'Link';
 /**
- * findNormalizableArray
+ * findNormalizableLinkInArray
  *
  * @param array
  * @param predicate
  * @return {*}
  */
-const findNormalizableArray = (array, predicate) => {
+const findNormalizableLinkInArray = (array, predicate) => {
   if (!array) {
     return;
   }
@@ -31,14 +33,14 @@ const findNormalizableArray = (array, predicate) => {
 const getLink = (response, link) => {
   const { linkType: type, id } = link.sys;
 
-  const predicate = (resource) => (resource.sys.type === type && resource.sys.id === id);
+  const predicate = ({ sys }) => (sys.type === type && sys.id === id);
 
-  const result = findNormalizableArray(response.items, predicate);
+  const result = findNormalizableLinkInArray(response.items, predicate);
 
   const hasResult = Boolean(result);
 
   if (!hasResult && response.includes) {
-    return findNormalizableArray(response.includes[type], predicate);
+    return findNormalizableLinkInArray(response.includes[type], predicate);
   }
   return hasResult ? result : undefined;
 };
@@ -74,11 +76,11 @@ const walkMutate = (input, predicate, mutator) => {
  */
 const resolveResponse = (response) => {
   if (!response.items) {
-    return { response: {}, resolved: [] };
+    return [];
   }
-  const customObject = Object.assign({}, response);
-  walkMutate(customObject, isLink, (link) => (getLink(customObject, link) || link));
-  return { response, resolved: customObject.items };
+  const customObject = cloneDeep(response);
+  walkMutate(customObject, isLink, link => getLink(customObject, link) || link);
+  return customObject.items;
 };
 
 module.exports = resolveResponse;

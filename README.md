@@ -29,23 +29,9 @@ var items = resolveResponse(response)
 console.log(items);
 
 // produces:
-{
-    // response key is the original response.
-    response:{
-      items: [
-        {
-          someValue: 'wow',
-          someLink: { sys: { type: 'Link', linkType: 'Entry', id: 'suchId' } }
-        }
-      ],
-      includes: {
-        Entry: [
-          { sys: { type: 'Entry', id: 'suchId' }, very: 'doge' }
-        ]
-      }
-    },
-    // resolved key is the re`solved` object
-    resolved:[
+// re`solved` object [Array] of items.
+    
+    items:[
       {
         // Value stays the same
         someValue: 'wow',
@@ -54,7 +40,6 @@ console.log(items);
         someLink: {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
       }
     ]
-}
 ```
 
 Note that:
