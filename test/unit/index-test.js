@@ -1,38 +1,35 @@
-const assert = require('chai').assert;
+const { deepEqual, notDeepEqual } = require('chai').assert;
 const resolveResponse = require('../../index');
 
-describe('resolveResponse', function () {
-  it('empty response', function () {
+describe('Resolve a response', function () {
+  it('for empty response returns an empty response', function () {
     const response = {};
-    const items = resolveResponse(response);
-    assert.deepEqual(items.resolved, []);
-    assert.deepEqual(items.response, response);
+    const resolved = resolveResponse(response);
+    deepEqual(resolved, []);
   });
 
-  it('no links in response', function () {
+  it('with no links in response returns without any change', function () {
     const response = {
       items: [{
         foo: 'bar'
       }]
     };
-    const items = resolveResponse(response);
-    assert.deepEqual(items.resolved, response.items);
-    assert.deepEqual(items.response, response);
+    const resolved = resolveResponse(response);
+    deepEqual(resolved, response.items);
   });
 
-  it('links in response, without matching include should remain', function () {
+  it('with links in response, without matching include should remain', function () {
     const response = {
       items: [
         {
           sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
         }]
     };
-    const items = resolveResponse(response);
-    assert.deepEqual(items.resolved, response.items);
-    assert.deepEqual(items.response, response);
+    const resolved = resolveResponse(response);
+    deepEqual(resolved, response.items);
   });
 
-  it('links in response, with matching include should resolve', function () {
+  it('with links in response, with matching include should resolve to give updated items', function () {
     const response = {
       items: [
         {
@@ -44,8 +41,8 @@ describe('resolveResponse', function () {
         ]
       }
     };
-    const items = resolveResponse(response);
-    assert.deepEqual(items.resolved[0], response.includes.Piglet[0]);
-    assert.deepEqual(items.response, response);
+    const resolved = resolveResponse(response);
+    notDeepEqual(response, resolved);
+    deepEqual(resolved[0], response.includes.Piglet[0]);
   });
 });
