@@ -2,3 +2,7 @@ node_modules
 
 # IDE Specific
 .idea
+
+#lock files
+*.lock
+*-lock.json

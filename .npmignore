@@ -1,0 +1,8 @@
+# Other Folders
+test
+
+# dot files
+.*
+
+# md files.
+*.md 
