@@ -24,7 +24,7 @@ var response = {
 };
 
 var items = resolveResponse(response)
-// Responds with the original object in the first position and mutated object in the second.
+// Responds with the resolved array of items.
 
 console.log(items);
 
