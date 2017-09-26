@@ -30,16 +30,15 @@ console.log(items);
 
 // produces:
 // re`solved` object [Array] of items.
-    
-    items:[
-      {
-        // Value stays the same
-        someValue: 'wow',
+  [
+    {
+      // Value stays the same
+      someValue: 'wow',
         
-        // Link gets replaced by the actual object from `includes.Entry`
-        someLink: {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
-      }
-    ]
+      // Link gets replaced by the actual object from `includes.Entry`
+      someLink: {sys: {type: 'Entry', id: 'suchId'}, very: 'doge'}
+    }
+  ]
 ```
 
 Note that:
