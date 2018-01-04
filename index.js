@@ -83,6 +83,7 @@ const normalizeLink = (responseClone, link, removeUnresolved) => {
  * @return {Object}
  */
 const resolveResponse = (response, options) => {
+  options = options || {};
   if (!response.items) {
     return [];
   }
