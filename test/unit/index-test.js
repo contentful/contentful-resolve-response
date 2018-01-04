@@ -47,7 +47,41 @@ describe('Resolve a response', function () {
     notDeepEqual(response, resolved);
     deepEqual(resolved[0], response.includes.Piglet[0]);
   });
-  it('link resolving: links in response, with circular references', function () {
+
+  it('resolve links from items and includes', function () {
+    const response = {
+      items: [
+        {
+          sys: { type: 'Entry', locale: 'en-US' },
+          fields: {
+            animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } }
+          }
+        },
+        {
+          sys: { type: 'Animal', id: 'parrot', locale: 'en-US' },
+          fields: { name: 'Parrot' }
+        }
+      ],
+      includes: {
+        Animal: [
+          {
+            sys: { type: 'Animal', id: 'oink', locale: 'en-US' },
+            fields: { name: 'Pig', friend: { sys: { type: 'Link', linkType: 'Animal', id: 'parrot' } } }
+          }
+        ]
+      }
+    };
+
+    const resolved = resolveResponse(response);
+
+    equal(resolved[0].fields.animal.sys.type, 'Animal', 'first link type');
+    equal(resolved[0].fields.animal.sys.id, 'oink', 'first link id');
+    equal(resolved[0].fields.animal.fields.friend.sys.type, 'Animal', 'sub link type');
+    equal(resolved[0].fields.animal.fields.friend.sys.id, 'parrot', 'sub link id');
+    equal(resolved[0].fields.animal.fields.friend.fields.name, 'Parrot', 'sub link fields.name');
+  });
+
+  it('links in response, with circular references', function () {
     const response = {
       items: [
         {
@@ -81,7 +115,7 @@ describe('Resolve a response', function () {
     equal(resolved[0].fields.animal.fields.friend.fields.friend.sys.id, 'oink', 'sub sub link id');
   });
 
-  it('link resolving: links in response, with circular references #2', function () {
+  it('links in response, with circular references #2', function () {
     const response = {
       items: [
         {
