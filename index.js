@@ -68,19 +68,28 @@ const walkMutate = (input, predicate, mutator) => {
   return input;
 };
 
+const normalizeLink = (responseClone, link, removeUnresolved) => {
+  const resolvedLink = getLink(responseClone, link);
+  if (resolvedLink === undefined) {
+    return removeUnresolved ? undefined : link;
+  }
+  return resolvedLink;
+};
+
 /**
  * resolveResponse Function
  * Resolves contentful response to normalized form.
  * @param response
  * @return {Object}
  */
-const resolveResponse = (response) => {
+const resolveResponse = (response, options) => {
   if (!response.items) {
     return [];
   }
-  const customObject = cloneDeep(response);
-  walkMutate(customObject, isLink, link => getLink(customObject, link) || link);
-  return customObject.items;
+  const responseClone = cloneDeep(response);
+  walkMutate(responseClone, isLink, (link) => normalizeLink(responseClone, link, options.removeUnresolved));
+
+  return responseClone.items;
 };
 
 module.exports = resolveResponse;
