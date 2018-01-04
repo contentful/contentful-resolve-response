@@ -79,7 +79,9 @@ const normalizeLink = (responseClone, link, removeUnresolved) => {
 /**
  * resolveResponse Function
  * Resolves contentful response to normalized form.
- * @param response
+ * @param {Object} response Contentful response
+ * @param {Object} options
+ * @param {Boolean} options.removeUnresolved - Remove unresolved links default:false
  * @return {Object}
  */
 const resolveResponse = (response, options) => {
