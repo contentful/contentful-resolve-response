@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "@contentful/eslint-config-backend": "^6.0.0",
-    "buster": "^0.7.18",
     "chai": "^4.1.1",
     "dirty-chai": "^2.0.1",
     "eslint": "^4.4.1",
@@ -23,7 +22,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^3.5.0"
+    "mocha": "^4.1.0"
   },
   "author": "Contentful GmbH",
   "license": "MIT",
