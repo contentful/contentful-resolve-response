@@ -89,7 +89,7 @@ const resolveResponse = (response, options) => {
 
   allEntries
     .forEach((item) => {
-      return Object.assign(item, {
+      Object.assign(item, {
         fields: walkMutate(item.fields, isLink, (link) => normalizeLink(allEntries, link, options.removeUnresolved))
       });
     });
