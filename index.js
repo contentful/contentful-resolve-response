@@ -15,9 +15,6 @@ const isLink = (object) => object && object.sys && object.sys.type === 'Link';
  * @return {*}
  */
 const findNormalizableLinkInArray = (array, predicate) => {
-  if (!array) {
-    return undefined;
-  }
   for (let i = 0, len = array.length; i < len; i++) {
     if (predicate(array[i])) {
       return array[i];
@@ -66,7 +63,7 @@ const walkMutate = (input, predicate, mutator) => {
 const normalizeLink = (allEntries, link, removeUnresolved) => {
   const resolvedLink = getLink(allEntries, link);
   if (resolvedLink === undefined) {
-    return removeUnresolved && isLink(link) ? undefined : link;
+    return removeUnresolved ? undefined : link;
   }
   return resolvedLink;
 };
@@ -91,11 +88,11 @@ const resolveResponse = (response, options) => {
   const allEntries = [...responseClone.items, ...allIncludes];
 
   allEntries
-    .forEach((item) => (
-      Object.assign(item, {
+    .forEach((item) => {
+      return Object.assign(item, {
         fields: walkMutate(item.fields, isLink, (link) => normalizeLink(allEntries, link, options.removeUnresolved))
-      })
-    ));
+      });
+    });
 
   return responseClone.items;
 };
