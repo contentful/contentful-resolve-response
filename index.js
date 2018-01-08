@@ -6,6 +6,7 @@ const { cloneDeep } = require('lodash');
  * @param object
  */
 const isLink = (object) => object && object.sys && object.sys.type === 'Link';
+
 /**
  * findNormalizableLinkInArray
  *
@@ -14,15 +15,14 @@ const isLink = (object) => object && object.sys && object.sys.type === 'Link';
  * @return {*}
  */
 const findNormalizableLinkInArray = (array, predicate) => {
-  if (!array) {
-    return;
-  }
   for (let i = 0, len = array.length; i < len; i++) {
     if (predicate(array[i])) {
       return array[i];
     }
   }
+  return undefined;
 };
+
 /**
  * getLink Function
  *
@@ -30,19 +30,12 @@ const findNormalizableLinkInArray = (array, predicate) => {
  * @param link
  * @return {undefined}
  */
-const getLink = (response, link) => {
+const getLink = (allEntries, link) => {
   const { linkType: type, id } = link.sys;
 
   const predicate = ({ sys }) => (sys.type === type && sys.id === id);
 
-  const result = findNormalizableLinkInArray(response.items, predicate);
-
-  const hasResult = Boolean(result);
-
-  if (!hasResult && response.includes) {
-    return findNormalizableLinkInArray(response.includes[type], predicate);
-  }
-  return hasResult ? result : undefined;
+  return findNormalizableLinkInArray(allEntries, predicate);
 };
 
 /**
@@ -63,13 +56,12 @@ const walkMutate = (input, predicate, mutator) => {
         input[key] = walkMutate(input[key], predicate, mutator);
       }
     }
-    return input;
   }
   return input;
 };
 
-const normalizeLink = (responseClone, link, removeUnresolved) => {
-  const resolvedLink = getLink(responseClone, link);
+const normalizeLink = (allEntries, link, removeUnresolved) => {
+  const resolvedLink = getLink(allEntries, link);
   if (resolvedLink === undefined) {
     return removeUnresolved ? undefined : link;
   }
@@ -90,7 +82,17 @@ const resolveResponse = (response, options) => {
     return [];
   }
   const responseClone = cloneDeep(response);
-  walkMutate(responseClone, isLink, (link) => normalizeLink(responseClone, link, options.removeUnresolved));
+  const allIncludes = Object.keys(responseClone.includes || {})
+    .reduce((all, type) => ([...all, ...response.includes[type]]), []);
+
+  const allEntries = [...responseClone.items, ...allIncludes];
+
+  allEntries
+    .forEach((item) => {
+      Object.assign(item, {
+        fields: walkMutate(item.fields, isLink, (link) => normalizeLink(allEntries, link, options.removeUnresolved))
+      });
+    });
 
   return responseClone.items;
 };
