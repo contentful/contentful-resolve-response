@@ -1,14 +1,14 @@
 const { deepEqual, notEqual, equal, notDeepEqual } = require('chai').assert;
 const resolveResponse = require('../../index');
 
-describe('Resolve a response', function () {
-  it('for empty response returns an empty response', function () {
+describe('Resolve a', function () {
+  it('empty response which returns an empty response', function () {
     const response = {};
     const resolved = resolveResponse(response);
     deepEqual(resolved, []);
   });
 
-  it('links in response, without matching include should remain by default', function () {
+  it('response with links without matching in includes should remain by default', function () {
     const items = [{
       sys: { type: 'Entry', locale: 'en-US' },
       fields: {
@@ -20,7 +20,7 @@ describe('Resolve a response', function () {
     equal(resolved[0].fields.animal.sys.type, 'Link');
   });
 
-  it('links in response, without matching include should not remain given removeUnresolved: true', function () {
+  it('response with links without matching in includes should not remain given removeUnresolved: true', function () {
     const items = [{
       sys: { type: 'Entry', locale: 'en-US' },
       fields: {
@@ -31,11 +31,63 @@ describe('Resolve a response', function () {
     equal(resolved[0].fields.animal, undefined);
   });
 
-  it('with links in response, with matching include should resolve to give updated items', function () {
+  it('response with links only within fields are removed given removeUnresolved: true', function () {
+    const items = [{
+      sys: {
+        type: 'Entry',
+        locale: 'en-US',
+        space: {
+          sys: {
+            type: 'Link',
+            linkType: 'Space',
+            id: 'someSpaceId'
+          }
+        }
+      },
+      fields: {
+        sys: {
+          sys: {
+            type: 'Link',
+            linkType: 'Entry',
+            id: 'Piglet'
+          }
+        },
+        otherField: {
+          sys: {
+            type: 'Link',
+            linkType: 'Entry',
+            id: 'Piglet'
+          }
+        },
+        arrayField: [
+          {
+            sys: {
+              type: 'Link',
+              linkType: 'Entry',
+              id: 'Piglet'
+            }
+          }
+        ]
+      }
+    }];
+    const resolved = resolveResponse({ items }, { removeUnresolved: true });
+    notEqual(resolved[0].sys.space, undefined, 'Space is not removed');
+    equal(resolved[0].sys.space.sys.type, 'Link', 'Space is still a link');
+    equal(resolved[0].fields.sys, undefined, 'Field called sys got removed');
+    equal(resolved[0].fields.otherField, undefined, 'Field called otherField got removed');
+    equal(resolved[0].fields.arrayField[0], undefined, 'Entry in arrayField got removed');
+  });
+
+  it('response with links matching items from includes should be resolved', function () {
     const response = {
       items: [
         {
-          sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
+          sys: {},
+          fields: {
+            linkField: {
+              sys: { type: 'Link', linkType: 'Piglet', id: 'oink' }
+            }
+          }
         }],
       includes: {
         Piglet: [
@@ -45,14 +97,14 @@ describe('Resolve a response', function () {
     };
     const resolved = resolveResponse(response);
     notDeepEqual(response, resolved);
-    deepEqual(resolved[0], response.includes.Piglet[0]);
+    deepEqual(resolved[0].fields.linkField, response.includes.Piglet[0]);
   });
 
-  it('resolve links from items and includes', function () {
+  it('response with links matching items from items and includes should be resolved', function () {
     const response = {
       items: [
         {
-          sys: { type: 'Entry', locale: 'en-US' },
+          sys: { type: 'Entry', locale: 'en-US', id: 'link-to-oink' },
           fields: {
             animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } }
           }
@@ -79,9 +131,10 @@ describe('Resolve a response', function () {
     equal(resolved[0].fields.animal.fields.friend.sys.type, 'Animal', 'sub link type');
     equal(resolved[0].fields.animal.fields.friend.sys.id, 'parrot', 'sub link id');
     equal(resolved[0].fields.animal.fields.friend.fields.name, 'Parrot', 'sub link fields.name');
+    equal(resolved.length, 2, 'contains only the queried entries');
   });
 
-  it('links in response, with circular references', function () {
+  it('response with links having circular references between items and includes should be resolved', function () {
     const response = {
       items: [
         {
@@ -113,9 +166,10 @@ describe('Resolve a response', function () {
     equal(resolved[0].fields.animal.fields.friend.sys.id, 'parrot', 'sub link id');
     equal(resolved[0].fields.animal.fields.friend.fields.friend.sys.type, 'Animal', 'sub sub link type');
     equal(resolved[0].fields.animal.fields.friend.fields.friend.sys.id, 'oink', 'sub sub link id');
+    equal(resolved.length, 1, 'contains only the queried entry');
   });
 
-  it('links in response, with circular references #2', function () {
+  it('response with links having circular references within items should be resolved', function () {
     const response = {
       items: [
         {
@@ -143,7 +197,7 @@ describe('Resolve a response', function () {
     equal(resolved[0].fields.linkfield.fields.linkfield.fields.linkfield.sys.id, 'two', 'sub sub link id');
   });
 
-  it('links in response, with matching include should resolve', function () {
+  it('response with links should resolve complex references between items and includes', function () {
     const items = [
       {
         sys: { type: 'Entry', locale: 'en-US' },
@@ -213,7 +267,7 @@ describe('Resolve a response', function () {
     );
   });
 
-  it('links in response with locale: *', function () {
+  it('response with links should resolve with unlocalised entries ("locale: *" query)', function () {
     const items = [
       {
         sys: { type: 'Entry' },
