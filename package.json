@@ -7,7 +7,9 @@
     "lint": "eslint '**/*.js'",
     "test": "npm run lint && npm run test-unit",
     "test-unit": "mocha 'test/**/*-test.js'",
-    "test-watch": "npm run test-unit -- --watch"
+    "test-watch": "npm run test-unit -- --watch",
+    "precommit": "npm run lint",
+    "prepush": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "husky": "^0.14.3",
     "mocha": "^4.1.0"
   },
   "author": "Contentful GmbH",
