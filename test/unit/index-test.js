@@ -197,6 +197,68 @@ describe('Resolve a', function () {
     equal(resolved[0].fields.linkfield.fields.linkfield.fields.linkfield.sys.id, 'two', 'sub sub link id');
   });
 
+  it('response with links having circular references in multi value fields', function () {
+    const response = {
+      items: [
+        {
+          sys: { type: 'Entry', locale: 'en-US', id: 'A' },
+          fields: {
+            linkfield: [
+              { sys: { type: 'Link', linkType: 'Entry', id: 'X' } },
+              { sys: { type: 'Link', linkType: 'Entry', id: 'Y' } },
+              { sys: { type: 'Link', linkType: 'Entry', id: 'Z' } }
+            ]
+          }
+        }
+      ],
+      includes: {
+        Entry: [
+          {
+            sys: { type: 'Entry', locale: 'en-US', id: 'X' },
+            fields: {
+              linkfield: [
+                { sys: { type: 'Link', linkType: 'Entry', id: 'A' } }
+              ]
+            }
+          },
+          {
+            sys: { type: 'Entry', locale: 'en-US', id: 'Y' },
+            fields: {
+              linkfield: [
+                { sys: { type: 'Link', linkType: 'Entry', id: 'X' } }
+              ]
+            }
+          },
+          {
+            sys: { type: 'Entry', locale: 'en-US', id: 'Z' },
+            fields: {
+              linkfield: [
+                { sys: { type: 'Link', linkType: 'Entry', id: 'Y' } }
+              ]
+            }
+          }
+        ]
+      }
+    };
+
+    const resolved = resolveResponse(response);
+
+    equal(resolved[0].fields.linkfield[0].sys.type, 'Entry', 'first link type');
+    equal(resolved[0].fields.linkfield[0].sys.id, 'X', 'first link id');
+    equal(resolved[0].fields.linkfield[0].fields.linkfield[0].sys.type, 'Entry', 'sub link type');
+    equal(resolved[0].fields.linkfield[0].fields.linkfield[0].sys.id, 'A', 'sub link id');
+
+    equal(resolved[0].fields.linkfield[1].sys.type, 'Entry', 'first link type');
+    equal(resolved[0].fields.linkfield[1].sys.id, 'Y', 'first link id');
+    equal(resolved[0].fields.linkfield[1].fields.linkfield[0].sys.type, 'Entry', 'sub link type');
+    equal(resolved[0].fields.linkfield[1].fields.linkfield[0].sys.id, 'X', 'sub link id');
+
+    equal(resolved[0].fields.linkfield[2].sys.type, 'Entry', 'first link type');
+    equal(resolved[0].fields.linkfield[2].sys.id, 'Z', 'first link id');
+    equal(resolved[0].fields.linkfield[2].fields.linkfield[0].sys.type, 'Entry', 'sub link type');
+    equal(resolved[0].fields.linkfield[2].fields.linkfield[0].sys.id, 'Y', 'sub link id');
+  });
+
   it('response with links should resolve complex references between items and includes', function () {
     const items = [
       {
