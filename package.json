@@ -8,7 +8,7 @@
     "test": "npm run lint && npm run test-unit",
     "test-unit": "nyc mocha 'test/**/*-test.js'",
     "test-watch": "npm run test-unit -- --watch",
-    "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "precommit": "npm run lint",
     "prepush": "npm run test"
   },
