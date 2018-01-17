@@ -31,7 +31,7 @@ describe('Resolve a', function () {
     equal(resolved[0].fields.animal, undefined);
   });
 
-  it('response with links only within fields are removed given removeUnresolved: true', function () {
+  it('response with links only within options.itemEntryPoints are removed given removeUnresolved: true', function () {
     const items = [{
       sys: {
         type: 'Entry',
@@ -70,7 +70,7 @@ describe('Resolve a', function () {
         ]
       }
     }];
-    const resolved = resolveResponse({ items }, { removeUnresolved: true });
+    const resolved = resolveResponse({ items }, { removeUnresolved: true, itemEntryPoints: ['fields'] });
     notEqual(resolved[0].sys.space, undefined, 'Space is not removed');
     equal(resolved[0].sys.space.sys.type, 'Link', 'Space is still a link');
     equal(resolved[0].fields.sys, undefined, 'Field called sys got removed');
@@ -353,5 +353,34 @@ describe('Resolve a', function () {
     };
     const resolved = resolveResponse({ items, includes });
     equal(resolved[0].fields.animal['en'].fields.name['en'], includes.Entry[0].fields.name['en']);
+  });
+
+  it('resolves items that are not entries', function () {
+    const items = [
+      {
+        sys: { type: 'Space' },
+        name: 'My Space',
+        locales: [
+          { sys: { type: 'Link', linkType: 'Locale', id: 'german' } },
+          { sys: { type: 'Link', linkType: 'Locale', id: 'us-english' } }
+        ]
+      }
+    ];
+    const includes = {
+      Locale: [
+        {
+          sys: { type: 'Locale', id: 'german' },
+          name: 'German',
+          code: 'de-DE'
+        },
+        {
+          sys: { type: 'Locale', id: 'us-english' },
+          name: 'American English',
+          code: 'en-US'
+        }
+      ]
+    };
+    const resolved = resolveResponse({ items, includes });
+    equal(resolved[0].locales[0].name, includes.Locale[0].name);
   });
 });

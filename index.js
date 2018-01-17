@@ -68,12 +68,26 @@ const normalizeLink = (allEntries, link, removeUnresolved) => {
   return resolvedLink;
 };
 
+const makeEntryObject = (item, itemEntryPoints) => {
+  if (!Array.isArray(itemEntryPoints)) {
+    return item;
+  }
+
+  const entryPoints = Object.keys(item).filter((ownKey) => itemEntryPoints.includes(ownKey));
+
+  return entryPoints.reduce((entryObj, entryPoint) => {
+    entryObj[entryPoint] = item[entryPoint];
+    return entryObj;
+  }, {});
+};
+
 /**
  * resolveResponse Function
  * Resolves contentful response to normalized form.
  * @param {Object} response Contentful response
  * @param {Object} options
  * @param {Boolean} options.removeUnresolved - Remove unresolved links default:false
+ * @param {Array<String>} options.itemEntryPoints - Resolve links only in those item properties
  * @return {Object}
  */
 const resolveResponse = (response, options) => {
@@ -89,9 +103,12 @@ const resolveResponse = (response, options) => {
 
   allEntries
     .forEach((item) => {
-      Object.assign(item, {
-        fields: walkMutate(item.fields, isLink, (link) => normalizeLink(allEntries, link, options.removeUnresolved))
-      });
+      const entryObject = makeEntryObject(item, options.itemEntryPoints);
+
+      Object.assign(
+        item,
+        walkMutate(entryObject, isLink, (link) => normalizeLink(allEntries, link, options.removeUnresolved))
+      );
     });
 
   return responseClone.items;
