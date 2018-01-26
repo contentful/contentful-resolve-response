@@ -39,6 +39,23 @@ const getLink = (allEntries, link) => {
 };
 
 /**
+ * cleanUpLink Function
+ * - Removes unresolvable links from Arrays and Objects
+ *
+ * @param {Object[]|Object} input
+ * @param {number|string} key
+ */
+const cleanUpLink = (input, key) => {
+  if (input[key] === undefined) {
+    if (Array.isArray(input)) {
+      input.splice(key, 1);
+    } else {
+      delete input[key];
+    }
+  }
+};
+
+/**
  * walkMutate Function
  * @param input
  * @param predicate
@@ -54,6 +71,7 @@ const walkMutate = (input, predicate, mutator) => {
     for (const key in input) {
       if (input.hasOwnProperty(key)) {
         input[key] = walkMutate(input[key], predicate, mutator);
+        cleanUpLink(input, key);
       }
     }
   }
