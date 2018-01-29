@@ -28,7 +28,7 @@ describe('Resolve a', function () {
       }
     }];
     const resolved = resolveResponse({ items }, { removeUnresolved: true });
-    equal(resolved[0].fields.animal, undefined);
+    equal('animal' in resolved[0].fields, false, 'field animal got removed');
   });
 
   it('response with links only within options.itemEntryPoints are removed given removeUnresolved: true', function () {
@@ -59,6 +59,13 @@ describe('Resolve a', function () {
             id: 'Piglet'
           }
         },
+        resolveableField: {
+          sys: {
+            type: 'Link',
+            linkType: 'Entry',
+            id: 'Parrot'
+          }
+        },
         arrayField: [
           {
             sys: {
@@ -66,16 +73,33 @@ describe('Resolve a', function () {
               linkType: 'Entry',
               id: 'Piglet'
             }
+          },
+          {
+            sys: {
+              type: 'Link',
+              linkType: 'Entry',
+              id: 'Parrot'
+            }
           }
         ]
       }
     }];
-    const resolved = resolveResponse({ items }, { removeUnresolved: true, itemEntryPoints: ['fields'] });
-    notEqual(resolved[0].sys.space, undefined, 'Space is not removed');
+    const includes = {
+      entries: [{
+        sys: { type: 'Entry', id: 'Parrot', locale: 'en-US' },
+        fields: { name: 'Parrot' }
+      }]
+    };
+    const resolved = resolveResponse({ items, includes }, { removeUnresolved: true, itemEntryPoints: ['fields'] });
+    const sys = resolved[0].sys;
+    const fields = resolved[0].fields;
+    notEqual(sys.space, undefined, 'Space is not removed');
     equal(resolved[0].sys.space.sys.type, 'Link', 'Space is still a link');
-    equal(resolved[0].fields.sys, undefined, 'Field called sys got removed');
-    equal(resolved[0].fields.otherField, undefined, 'Field called otherField got removed');
-    equal(resolved[0].fields.arrayField[0], undefined, 'Entry in arrayField got removed');
+    equal('resolveableField' in fields, true, 'Resolveable field called resolveAble did not get removed');
+    equal('sys' in fields, false, 'Unresolvable field called sys got removed');
+    equal('otherField' in fields, false, 'Unresolvable field called otherField got removed');
+    equal(fields.arrayField[0].sys.id, 'Parrot', 'First item in arrayField becomes resolvable Parrot entry');
+    equal(fields.arrayField.length, 1, 'Only resolvable entry stays in array field');
   });
 
   it('response with links matching items from includes should be resolved', function () {
@@ -206,7 +230,8 @@ describe('Resolve a', function () {
             linkfield: [
               { sys: { type: 'Link', linkType: 'Entry', id: 'X' } },
               { sys: { type: 'Link', linkType: 'Entry', id: 'Y' } },
-              { sys: { type: 'Link', linkType: 'Entry', id: 'Z' } }
+              { sys: { type: 'Link', linkType: 'Entry', id: 'Z' } },
+              { sys: { type: 'Link', linkType: 'Entry', id: 'unresolveableId' } }
             ]
           }
         }
@@ -242,6 +267,13 @@ describe('Resolve a', function () {
     };
 
     const resolved = resolveResponse(response);
+
+    equal(resolved[0].fields.linkfield.length, 4, 'keeps all links including the unresolvable one');
+    deepEqual(resolved[0].fields.linkfield[3], {
+      sys: {
+        type: 'Link', linkType: 'Entry', id: 'unresolveableId'
+      }
+    }, 'unresolvable link stays as unresolved link');
 
     equal(resolved[0].fields.linkfield[0].sys.type, 'Entry', 'first link type');
     equal(resolved[0].fields.linkfield[0].sys.id, 'X', 'first link id');
