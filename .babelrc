@@ -1,0 +1,28 @@
+{
+  "env": {
+    "esm": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": [
+              "last 2 versions"
+            ]
+          },
+          "modules": false
+        }]
+      ]
+    },
+    "cjs": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "4.7.2"
+          }
+        }]
+      ],
+      "plugins": [
+        "add-module-exports"
+      ]
+    }
+  }
+}

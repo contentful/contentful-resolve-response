@@ -2,22 +2,36 @@
   "name": "contentful-resolve-response",
   "version": "1.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "jsnext:main": "./dist/esm/index.js",
   "scripts": {
-    "lint": "eslint '**/*.js'",
+    "build": "BABEL_ENV=cjs babel index.js -d dist/cjs/ && BABEL_ENV=esm babel index.js -d dist/esm/",
+    "lint": "eslint index.js test",
     "test": "npm run lint && npm run test-unit",
-    "test-unit": "nyc mocha 'test/**/*-test.js'",
+    "test-unit": "BABEL_ENV=cjs nyc mocha --require babel-register 'test/**/*-test.js'",
     "test-watch": "npm run test-unit -- --watch",
     "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "precommit": "npm run lint",
-    "prepush": "npm run test"
+    "prepush": "npm run test",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:contentful/contentful-resolve-response.git"
   },
+  "engines": {
+    "node": ">=4.7.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
   "devDependencies": {
     "@contentful/eslint-config-backend": "^6.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.1",
     "codecov": "^3.0.0",
     "dirty-chai": "^2.0.1",
@@ -31,13 +45,13 @@
     "mocha": "^4.1.0",
     "nyc": "^11.4.1"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Contentful GmbH",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com:contentful/contentful-resolve-response/issues"
   },
-  "homepage": "https://github.com:contentful/contentful-resolve-response",
-  "dependencies": {
-    "lodash": "^4.17.4"
-  }
+  "homepage": "https://github.com:contentful/contentful-resolve-response"
 }
