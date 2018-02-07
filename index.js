@@ -1,4 +1,4 @@
-const cloneDeep = require('lodash/cloneDeep');
+import cloneDeep from 'lodash/cloneDeep';
 
 /**
  * isLink Function
@@ -132,4 +132,4 @@ const resolveResponse = (response, options) => {
   return responseClone.items;
 };
 
-module.exports = resolveResponse;
+export default resolveResponse;
