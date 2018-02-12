@@ -91,7 +91,7 @@ const makeEntryObject = (item, itemEntryPoints) => {
     return item;
   }
 
-  const entryPoints = Object.keys(item).filter((ownKey) => itemEntryPoints.includes(ownKey));
+  const entryPoints = Object.keys(item).filter((ownKey) => itemEntryPoints.indexOf(ownKey) !== -1 );
 
   return entryPoints.reduce((entryObj, entryPoint) => {
     entryObj[entryPoint] = item[entryPoint];
