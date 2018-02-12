@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v1.1.3 - 2018-02-12
+
+### Bug Fixes
+
+* **compatibility:**  indexOf instead of includes([#18](https://github.com/contentful/contentful-resolve-response/pull/18)) ([1c3b277c](https://github.com/contentful/contentful-resolve-response/commit/1c3b277c2189b966841a86da276de018618aa1ce))
+
 ## v1.1.2
 
 ### Build System / Dependencies
