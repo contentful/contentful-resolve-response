@@ -94,12 +94,23 @@ describe('Resolve a', function () {
     const sys = resolved[0].sys;
     const fields = resolved[0].fields;
     notEqual(sys.space, undefined, 'Space is not removed');
-    equal(resolved[0].sys.space.sys.type, 'Link', 'Space is still a link');
+    equal(sys.space.sys.type, 'Link', 'Space is still a link');
     equal('resolveableField' in fields, true, 'Resolveable field called resolveAble did not get removed');
     equal('sys' in fields, false, 'Unresolvable field called sys got removed');
     equal('otherField' in fields, false, 'Unresolvable field called otherField got removed');
     equal(fields.arrayField[0].sys.id, 'Parrot', 'First item in arrayField becomes resolvable Parrot entry');
     equal(fields.arrayField.length, 1, 'Only resolvable entry stays in array field');
+  });
+
+  it('real response and removes unresolveable given removeUnresolved: true', function () {
+    const response = require('./real-response.json');
+    const resolved = resolveResponse(response, { removeUnresolved: true, itemEntryPoints: ['fields'] });
+    const sys = resolved[0].sys;
+    const fields = resolved[0].fields;
+    notEqual(sys.space, undefined, 'Space is not removed');
+    equal(sys.space.sys.type, 'Link', 'Space is still a link');
+    const unresolvedLessons = fields.lessons.filter((lesson) => lesson.sys.type === 'Link');
+    equal(unresolvedLessons.length, 0, 'Has no unresolved lessons');
   });
 
   it('response with links matching items from includes should be resolved', function () {
