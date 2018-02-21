@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 
+const UNRESOLVED_LINK = {}; // unique object to avoid polyfill bloat using Symbol()
+
 /**
  * isLink Function
  * Checks if the object has sys.type "Link"
@@ -20,7 +22,7 @@ const findNormalizableLinkInArray = (array, predicate) => {
       return array[i];
     }
   }
-  return undefined;
+  return UNRESOLVED_LINK;
 };
 
 /**
@@ -39,20 +41,21 @@ const getLink = (allEntries, link) => {
 };
 
 /**
- * cleanUpLink Function
+ * cleanUpLinks Function
  * - Removes unresolvable links from Arrays and Objects
  *
  * @param {Object[]|Object} input
- * @param {number|string} key
  */
-const cleanUpLink = (input, key) => {
-  if (input[key] === undefined) {
-    if (Array.isArray(input)) {
-      input.splice(key, 1);
-    } else {
+const cleanUpLinks = (input) => {
+  if (Array.isArray(input)) {
+    return input.filter((val) => val !== UNRESOLVED_LINK);
+  }
+  for (const key in input) {
+    if (input[key] === UNRESOLVED_LINK) {
       delete input[key];
     }
   }
+  return input;
 };
 
 /**
@@ -62,7 +65,7 @@ const cleanUpLink = (input, key) => {
  * @param mutator
  * @return {*}
  */
-const walkMutate = (input, predicate, mutator) => {
+const walkMutate = (input, predicate, mutator, removeUnresolved) => {
   if (predicate(input)) {
     return mutator(input);
   }
@@ -70,9 +73,11 @@ const walkMutate = (input, predicate, mutator) => {
   if (input && typeof input === 'object') {
     for (const key in input) {
       if (input.hasOwnProperty(key)) {
-        input[key] = walkMutate(input[key], predicate, mutator);
-        cleanUpLink(input, key);
+        input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved);
       }
+    }
+    if (removeUnresolved) {
+      input = cleanUpLinks(input);
     }
   }
   return input;
@@ -80,8 +85,8 @@ const walkMutate = (input, predicate, mutator) => {
 
 const normalizeLink = (allEntries, link, removeUnresolved) => {
   const resolvedLink = getLink(allEntries, link);
-  if (resolvedLink === undefined) {
-    return removeUnresolved ? undefined : link;
+  if (resolvedLink === UNRESOLVED_LINK) {
+    return removeUnresolved ? resolvedLink : link;
   }
   return resolvedLink;
 };
@@ -125,7 +130,12 @@ const resolveResponse = (response, options) => {
 
       Object.assign(
         item,
-        walkMutate(entryObject, isLink, (link) => normalizeLink(allEntries, link, options.removeUnresolved))
+        walkMutate(
+          entryObject,
+          isLink,
+          (link) => normalizeLink(allEntries, link, options.removeUnresolved),
+          options.removeUnresolved
+        )
       );
     });
 

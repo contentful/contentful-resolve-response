@@ -1,0 +1,711 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "total": 1,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "jf21gt3a659v"
+          }
+        },
+        "id": "34MlmiuMgU8wKCOOIkAuMy",
+        "type": "Entry",
+        "createdAt": "2018-02-21T09:19:36.414Z",
+        "updatedAt": "2018-02-21T09:19:36.414Z",
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "course"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "title": "Hello SDKs",
+        "slug": "hello-sdks",
+        "image": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Asset",
+            "id": "6nvWJT1AkM64so8Auue4QQ"
+          }
+        },
+        "shortDescription": "Learn about best practices when using our SDKs.",
+        "description": "By looking at the code of the example app, you'll get a sense of how to use a Contentful SDK in your favorite programming language.",
+        "duration": 5,
+        "skillLevel": "beginner",
+        "lessons": [
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "5mgMoU9aCWE88SIqSIMGYE"
+            }
+          },
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "3jkW4CdxPqu8Q2oSgCeOuy"
+            }
+          },
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "Dy6jo5j4goU2C4sc8Kwkk"
+            }
+          },
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "1HR1QvURo4MoSqO0eqmUeO"
+            }
+          },
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "5VWYVBc39Cia0sqqaeyiIW"
+            }
+          }
+        ],
+        "categories": [
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "7JhDodrNmwmwGmQqiACW4"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "sys": {
+        "id": "notResolvable",
+        "type": "error"
+      },
+      "details": {
+        "type": "Link",
+        "linkType": "Entry",
+        "id": "Dy6jo5j4goU2C4sc8Kwkk"
+      }
+    }
+  ],
+  "includes": {
+    "Entry": [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "15Cx6Bu1Y2qAkyq2yWgkK2",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:41.546Z",
+          "updatedAt": "2018-02-21T09:19:41.546Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "SDK basics > SDK initialization",
+          "copy": "Include the SDK in your project and initialize a client: \n\n1. Add the import statement\n2. Configure a client with your space ID and Content Delivery API token"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "1HR1QvURo4MoSqO0eqmUeO",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:37.564Z",
+          "updatedAt": "2018-02-21T09:19:37.564Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lesson"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Serve localized content",
+          "slug": "serve-localized-content",
+          "modules": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "2tV9n41tryO2QMwIkQUQeQ"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "5u5i90HuEgcOYKacSoMEG6"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "58B62ubQbmIOiAkmq44kAo"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "1ph3B44420k2wgG8y2aYcM",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:41.410Z",
+          "updatedAt": "2018-02-21T09:19:41.410Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCodeSnippets"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "SDK basics > installation - code",
+          "curl": "# N/A",
+          "dotNet": "dotnet add package contentful.csharp",
+          "javascript": "npm install contentful",
+          "java": "compile 'com.contentful.java:java-sdk:+'",
+          "javaAndroid": "compile 'com.contentful.java:java-sdk:+'",
+          "php": "composer require contentful/contentful",
+          "python": "pip install contentful",
+          "ruby": "gem install contentful",
+          "swift": "// Add to your Podfile\n\npod 'Contentful', '~> 0.10.1'\n\n// Then execute \"pod install\" in your projects directory"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "1u8xSIQR4UaoQOc4m6KiiU",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:40.537Z",
+          "updatedAt": "2018-02-21T09:19:40.537Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCodeSnippets"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "SDK basics > SDK initialization - code",
+          "curl": "export CDA_TOKEN='<access_token>';\nexport SPACE_ID='<space_id>';",
+          "dotNet": "var httpClient = new HttpClient();\nvar client = new ContentfulClient(httpClient, \"<access_token>\", \"\", \"<space_id>\");",
+          "javascript": "const contentful = require('contentful')\nconst client = contentful.createClient({\n  space: '<space_id>',\n  accessToken: '<access_token>'\n})\n",
+          "java": "final CDAClient client =\n    CDAClient\n        .builder()\n        .setToken(\"<access_token>\")\n        .setSpace(\"<space_id>\")\n        .build();\n",
+          "javaAndroid": "final CDAClient client =\n    CDAClient\n        .builder()\n        .setToken(\"<access_token>\")\n        .setSpace(\"<space_id>\")\n        .build();\n",
+          "php": "$client = new \\Contentful\\Delivery\\Client(\n    '<access_token>',\n    '<space_id>'\n);",
+          "python": "import contentful\n\nclient = contentful.Client('<space_id>', '<access_token>')\n",
+          "ruby": "require ‘contentful’\n\nclient = Contentful::Client.new(\n  space: '<space_id>',\n  access_token: '<access_token>',\n  dynamic_entries: :auto,\n  raise_errors: true\n)",
+          "swift": "import Contentful\n\nlet client = Client(spaceId: \"<space_id>\", \n                    accessToken: \"<access_token>\")"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "2tV9n41tryO2QMwIkQUQeQ",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:40.472Z",
+          "updatedAt": "2018-02-21T09:19:40.472Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Serve localized content > fetching",
+          "copy": "If you have configured different locales within your content model, you can fetch that localized content:"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "3QJuO2TNxm0OqSgIMaoCwi",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:40.131Z",
+          "updatedAt": "2018-02-21T09:19:40.131Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCodeSnippets"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Fetch all entries > code",
+          "curl": "curl -H 'Authorization: Bearer '$CDA_TOKEN 'https://cdn.contentful.com/spaces/'$SPACE_ID'/entries/'",
+          "dotNet": "var entry = await client.GetEntries<dynamic>();\n\nConsole.WriteLine(entry.ToString());",
+          "javascript": "client.getEntries()\n.then((response) => console.log(response))",
+          "java": "final CDAArray all =\n    client\n        .fetch(CDAEntry.class)\n        .all();\n\nSystem.out.println(all);\n",
+          "javaAndroid": "client\n    .observe(CDAEntry.class)\n    .all()\n    .observeOn(AndroidSchedulers.mainThread())\n    .subscribeOn(io.reactivex.schedulers.Schedulers.io())\n    .subscribe(\n        new DisposableSubscriber<CDAArray>() {\n          CDAArray result;\n\n          @Override public void onComplete() {\n            new AlertDialog.Builder(context)\n                .setTitle(\"Contentful\")\n                .setMessage(result.toString())\n                .show();\n          }\n\n          @Override public void onError(Throwable e) {\n            // Handle error case.\n            new AlertDialog.Builder(context)\n                .setTitle(\"Contentful\")\n                .setMessage(\"An error occurred: \" + e.toString())\n                .show();\n          }\n\n          @Override public void onNext(CDAArray array) {\n            // Array received, maybe more to come.\n            result = entry;\n          }\n        }",
+          "php": "$entries = $client->getEntries();\n\nvar_dump($entries);",
+          "python": "entries = client.entries()\nprint(repr(entries))",
+          "ruby": "entries = client.entries()\nputs(entries)",
+          "swift": "client.fetchEntries() { (result: Result<ArrayResponse<Entry>>) in\n    switch result {\n        case .success(arrayResponse):\n            let entries = arrayResponse.items\n            print(entries)\n        case .error(let error):\n            print(\"Error \\(error)!\")\n    }\n}"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "3Y1JQg9bjqIG6OgA2KAM4A",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:39.098Z",
+          "updatedAt": "2018-02-21T09:19:39.098Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "SDK basics > installation",
+          "copy": "To make communication with Contentful as simple as possible, we've created open source SDKs.\n\nInstall an SDK:"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "3jkW4CdxPqu8Q2oSgCeOuy",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:39.551Z",
+          "updatedAt": "2018-02-21T09:19:39.551Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lesson"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Fetch all entries",
+          "slug": "fetch-all-entries",
+          "modules": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "5WZ7JD9Hb2Myi6uYYSscIw"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "3QJuO2TNxm0OqSgIMaoCwi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "3k6uoYm9i8MycCm42IsY62",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:38.529Z",
+          "updatedAt": "2018-02-21T09:19:38.529Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "SDK basics > SDK initialization - API token tip",
+          "copy": "New to APIs? An API token ensures that only an authorized person or application can pull content from your space."
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "4Ng6zmj9e8Sw0eaYKQM8Es",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:38.399Z",
+          "updatedAt": "2018-02-21T09:19:38.399Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Hello SDKs > summary copy",
+          "copy": "Congratulations! Now you know how the example app was built using the Contentful SDK. Feel free download the source code and interact with it. If you have any questions, head over to the [Contentful Community](https://www.contentfulcommunity.com/) forum or [contact support](https://www.contentful.com/support/). Or head to our [tutorials section](https://www.contentful.com/developers/docs/tutorials/) in the developer documentation "
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "58B62ubQbmIOiAkmq44kAo",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:39.406Z",
+          "updatedAt": "2018-02-21T09:19:39.406Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Serve localized content > code success",
+          "copy": "Switch the language of this text from English to German by going to `Locale: U.S. English` in the top menu bar and selecting `German`."
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "5VWYVBc39Cia0sqqaeyiIW",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:37.406Z",
+          "updatedAt": "2018-02-21T09:19:37.406Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lesson"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Summary",
+          "slug": "example-app-summary",
+          "modules": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "4Ng6zmj9e8Sw0eaYKQM8Es"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "5WZ7JD9Hb2Myi6uYYSscIw",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:41.406Z",
+          "updatedAt": "2018-02-21T09:19:41.406Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCopy"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Fetch all entries > introduction",
+          "copy": "Now that you have configured a Contentful client, you can use it to fetch all of the entries in your Contentful space:"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "5mgMoU9aCWE88SIqSIMGYE",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:37.094Z",
+          "updatedAt": "2018-02-21T09:19:37.094Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lesson"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "SDK basics",
+          "slug": "sdk-basics",
+          "modules": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "3Y1JQg9bjqIG6OgA2KAM4A"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "1ph3B44420k2wgG8y2aYcM"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "15Cx6Bu1Y2qAkyq2yWgkK2"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "1u8xSIQR4UaoQOc4m6KiiU"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "3k6uoYm9i8MycCm42IsY62"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "5u5i90HuEgcOYKacSoMEG6",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:40.402Z",
+          "updatedAt": "2018-02-21T09:19:40.402Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "lessonCodeSnippets"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Serve localized content > fetch code",
+          "curl": "entry = client.entry('2uNOpLMJioKeoMq8W44uYc', locale: 'de-DE')\nputs(entry.fields)",
+          "dotNet": "var queryBuilder = QueryBuilder<dynamic>.New.LocaleIs(\"de-DE\");\nvar entries = await client.GetEntriesAsync(queryBuilder);\nConsole.WriteLine(entries.ToString());",
+          "javascript": "client.getEntries({'locale': 'de-DE'}).then((response) => {\n  console.log(response)\n})",
+          "java": "final CDAArray all =\n    client\n        .fetch(CDAEntry.class)\n        .where(\"locale\", \"de-DE\")\n        .all();\n\nSystem.out.println(all.toString());",
+          "javaAndroid": "client\n    .observe(CDAEntry.class)\n    .where(\"locale\", \"de-DE\")\n    .all()\n    .observeOn(AndroidSchedulers.mainThread())\n    .subscribeOn(io.reactivex.schedulers.Schedulers.io())\n    .subscribe(\n        new DisposableSubscriber<CDAArray>() {\n          CDAArray result;\n\n          @Override public void onComplete() {\n            new AlertDialog.Builder(context)\n                .setTitle(\"Contentful\")\n                .setMessage(result.toString())\n                .show();\n          }\n\n          @Override public void onError(Throwable e) {\n            // Handle error case.\n            new AlertDialog.Builder(context)\n                .setTitle(\"Contentful\")\n                .setMessage(\"An error occurred: \" + e.toString())\n                .show();\n          }\n\n          @Override public void onNext(CDAArray entry) {\n            // Array received, maybe more to come.\n            result = entry;\n          }\n        }",
+          "php": "$query = (new Contentful\\Delivery\\Query())\n    ->setLocale('de-DE');\n\n$entries = $client->getEntries($query);\n\nvar_dump($entries);",
+          "python": "entry = client.entry('2uNOpLMJioKeoMq8W44uYc', {'locale': 'de-DE'})\nprint(entry.fields())",
+          "ruby": "entry = client.entry('2uNOpLMJioKeoMq8W44uYc', locale: 'de-DE')\nputs(entry.fields)",
+          "swift": "let query = Query(where: \"locale\", .equals(\"de-DE\"))\n\nclient.fetchEntries(with: query) { (result: Result<ArrayResponse<Entry>>) in\n  switch result {\n  case .success(let arrayResponse):\n    let entries = arrayResponse.items\n    print(entries)\n  case .error(let error):\n    print(error)\n  }\n}"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "7JhDodrNmwmwGmQqiACW4",
+          "type": "Entry",
+          "createdAt": "2018-02-21T09:19:38.399Z",
+          "updatedAt": "2018-02-21T09:19:38.399Z",
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "category"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Application development",
+          "slug": "application-development"
+        }
+      }
+    ],
+    "Asset": [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jf21gt3a659v"
+            }
+          },
+          "id": "6nvWJT1AkM64so8Auue4QQ",
+          "type": "Asset",
+          "createdAt": "2018-02-21T09:19:43.103Z",
+          "updatedAt": "2018-02-21T09:19:43.103Z",
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Contentful hero",
+          "file": {
+            "url": "//images.contentful.com/jf21gt3a659v/6nvWJT1AkM64so8Auue4QQ/81139345d286b0ecc2e0479848db34d4/EngineeringHistory.png",
+            "details": {
+              "size": 100983,
+              "image": {
+                "width": 1908,
+                "height": 887
+              }
+            },
+            "fileName": "EngineeringHistory.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    ]
+  }
+}
