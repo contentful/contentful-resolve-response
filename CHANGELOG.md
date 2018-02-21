@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v1.1.4 - 2018-02-21
+
+### Bug Fixes
+
+* **array-fields:**  proper unresolved removal while iterating array ([#19](https://github.com/contentful/contentful-resolve-response/pull/19)) ([39bf40d7](https://github.com/contentful/contentful-resolve-response/commit/39bf40d7e38f5e3a0bce96491448c333d128b850))
+
 ## v1.1.3 - 2018-02-12
 
 ### Bug Fixes
