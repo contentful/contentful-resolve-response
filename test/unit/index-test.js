@@ -427,4 +427,27 @@ describe('Resolve a', function () {
     const resolved = resolveResponse({ items, includes });
     equal(resolved[0].locales[0].name, includes.Locale[0].name);
   });
+
+  it('resolves objects with a `sys` deep inside (e.g. a JSON) field value', function () {
+    const items = [
+      {
+        sys: { type: 'Entry' },
+        fields: {
+          animalJson: { farm: { stables: [{ animal: { sys: { type: 'Link', linkType: 'Entry', id: 'oink' } } }] } }
+        }
+      }
+    ];
+    const includes = {
+      Entry: [
+        {
+          sys: { type: 'Entry', id: 'oink' },
+          fields: {
+            name: 'Pig'
+          }
+        }
+      ]
+    };
+    const resolved = resolveResponse({ items, includes });
+    equal(resolved[0].fields.animalJson.farm.stables[0].animal.fields.name, includes.Entry[0].fields.name);
+  });
 });
