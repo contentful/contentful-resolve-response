@@ -24,26 +24,26 @@
     "node": ">=4.7.2"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/eslint-config-backend": "^6.0.0",
+    "@contentful/eslint-config-backend": "^7.0.0",
     "babel-cli": "^6.26.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-env": "^1.6.1",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
-    "chai": "^4.1.1",
-    "codecov": "^3.0.0",
+    "chai": "^4.2.0",
+    "codecov": "^3.5.0",
     "dirty-chai": "^2.0.1",
-    "eslint": "^4.4.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-mocha": "^4.11.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "husky": "^0.14.3",
-    "mocha": "^4.1.0",
-    "nyc": "^11.4.1"
+    "eslint": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-mocha": "^6.1.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^3.0.5",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
   },
   "files": [
     "dist"
