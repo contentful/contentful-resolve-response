@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const chai = require('chai');
-const dirtyChai = require('dirty-chai');
+const chai = require('chai')
+const dirtyChai = require('dirty-chai')
 
-chai.use(dirtyChai);
+chai.use(dirtyChai)

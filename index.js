@@ -1,13 +1,13 @@
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/cloneDeep'
 
-const UNRESOLVED_LINK = {}; // unique object to avoid polyfill bloat using Symbol()
+const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol()
 
 /**
  * isLink Function
  * Checks if the object has sys.type "Link"
  * @param object
  */
-const isLink = (object) => object && object.sys && object.sys.type === 'Link';
+const isLink = (object) => object && object.sys && object.sys.type === 'Link'
 
 /**
  * findNormalizableLinkInArray
@@ -19,11 +19,11 @@ const isLink = (object) => object && object.sys && object.sys.type === 'Link';
 const findNormalizableLinkInArray = (array, predicate) => {
   for (let i = 0, len = array.length; i < len; i++) {
     if (predicate(array[i])) {
-      return array[i];
+      return array[i]
     }
   }
-  return UNRESOLVED_LINK;
-};
+  return UNRESOLVED_LINK
+}
 
 /**
  * getLink Function
@@ -33,12 +33,12 @@ const findNormalizableLinkInArray = (array, predicate) => {
  * @return {undefined}
  */
 const getLink = (allEntries, link) => {
-  const { linkType: type, id } = link.sys;
+  const { linkType: type, id } = link.sys
 
-  const predicate = ({ sys }) => (sys.type === type && sys.id === id);
+  const predicate = ({ sys }) => sys.type === type && sys.id === id
 
-  return findNormalizableLinkInArray(allEntries, predicate);
-};
+  return findNormalizableLinkInArray(allEntries, predicate)
+}
 
 /**
  * cleanUpLinks Function
@@ -48,15 +48,15 @@ const getLink = (allEntries, link) => {
  */
 const cleanUpLinks = (input) => {
   if (Array.isArray(input)) {
-    return input.filter((val) => val !== UNRESOLVED_LINK);
+    return input.filter((val) => val !== UNRESOLVED_LINK)
   }
   for (const key in input) {
     if (input[key] === UNRESOLVED_LINK) {
-      delete input[key];
+      delete input[key]
     }
   }
-  return input;
-};
+  return input
+}
 
 /**
  * walkMutate Function
@@ -67,42 +67,42 @@ const cleanUpLinks = (input) => {
  */
 const walkMutate = (input, predicate, mutator, removeUnresolved) => {
   if (predicate(input)) {
-    return mutator(input);
+    return mutator(input)
   }
 
   if (input && typeof input === 'object') {
     for (const key in input) {
       if (input.hasOwnProperty(key)) {
-        input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved);
+        input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved)
       }
     }
     if (removeUnresolved) {
-      input = cleanUpLinks(input);
+      input = cleanUpLinks(input)
     }
   }
-  return input;
-};
+  return input
+}
 
 const normalizeLink = (allEntries, link, removeUnresolved) => {
-  const resolvedLink = getLink(allEntries, link);
+  const resolvedLink = getLink(allEntries, link)
   if (resolvedLink === UNRESOLVED_LINK) {
-    return removeUnresolved ? resolvedLink : link;
+    return removeUnresolved ? resolvedLink : link
   }
-  return resolvedLink;
-};
+  return resolvedLink
+}
 
 const makeEntryObject = (item, itemEntryPoints) => {
   if (!Array.isArray(itemEntryPoints)) {
-    return item;
+    return item
   }
 
-  const entryPoints = Object.keys(item).filter((ownKey) => itemEntryPoints.indexOf(ownKey) !== -1);
+  const entryPoints = Object.keys(item).filter((ownKey) => itemEntryPoints.indexOf(ownKey) !== -1)
 
   return entryPoints.reduce((entryObj, entryPoint) => {
-    entryObj[entryPoint] = item[entryPoint];
-    return entryObj;
-  }, {});
-};
+    entryObj[entryPoint] = item[entryPoint]
+    return entryObj
+  }, {})
+}
 
 /**
  * resolveResponse Function
@@ -114,32 +114,33 @@ const makeEntryObject = (item, itemEntryPoints) => {
  * @return {Object}
  */
 const resolveResponse = (response, options) => {
-  options = options || {};
+  options = options || {}
   if (!response.items) {
-    return [];
+    return []
   }
-  const responseClone = cloneDeep(response);
-  const allIncludes = Object.keys(responseClone.includes || {})
-    .reduce((all, type) => ([...all, ...response.includes[type]]), []);
+  const responseClone = cloneDeep(response)
+  const allIncludes = Object.keys(responseClone.includes || {}).reduce(
+    (all, type) => [...all, ...response.includes[type]],
+    []
+  )
 
-  const allEntries = [...responseClone.items, ...allIncludes];
+  const allEntries = [...responseClone.items, ...allIncludes]
 
-  allEntries
-    .forEach((item) => {
-      const entryObject = makeEntryObject(item, options.itemEntryPoints);
+  allEntries.forEach((item) => {
+    const entryObject = makeEntryObject(item, options.itemEntryPoints)
 
-      Object.assign(
-        item,
-        walkMutate(
-          entryObject,
-          isLink,
-          (link) => normalizeLink(allEntries, link, options.removeUnresolved),
-          options.removeUnresolved
-        )
-      );
-    });
+    Object.assign(
+      item,
+      walkMutate(
+        entryObject,
+        isLink,
+        (link) => normalizeLink(allEntries, link, options.removeUnresolved),
+        options.removeUnresolved
+      )
+    )
+  })
 
-  return responseClone.items;
-};
+  return responseClone.items
+}
 
-export default resolveResponse;
+export default resolveResponse
