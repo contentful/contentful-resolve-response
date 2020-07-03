@@ -35,10 +35,26 @@ jobs:
       - run:
           name: Linting commits
           command: npm run commitlint-circle
+  semantic-release:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: npm ci
+          command: npm ci
+      - run:
+          name: Releasing
+          command: npm run semantic-release
 workflows:
   test:
     jobs:
       - lint
       - test
       - lint-commits
+      - semantic-release:
+          requires:
+            - lint
+            - test
+            - lint-commits
 
