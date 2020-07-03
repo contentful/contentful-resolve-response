@@ -12,7 +12,8 @@
     "test-watch": "npm run test -- --watch",
     "precommit": "npm run lint",
     "prepush": "npm run test",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\""
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.0.5",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "prettier": "^2.0.5"
   },
   "files": [
     "dist"
