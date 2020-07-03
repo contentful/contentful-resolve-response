@@ -1,8 +1,8 @@
 module.exports = {
   env: {
-    'mocha': true
+    mocha: true,
   },
   rules: {
-    'max-nested-callbacks': [2, 6]
-  }
-};
+    'max-nested-callbacks': [2, 6],
+  },
+}
