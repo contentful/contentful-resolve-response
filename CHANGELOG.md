@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/contentful/contentful-resolve-response/compare/v1.2.1...v1.2.2) (2020-07-03)
+
+
+### Bug Fixes
+
+* bump to 1.2.2 for semantic-release ([b835e90](https://github.com/contentful/contentful-resolve-response/commit/b835e90b9a800712f43576e141500508cefdfffd))
+
 ## [1.2.1](https://github.com/contentful/contentful-resolve-response/compare/v1.2.0...v1.2.1) (2020-07-03)
 
 
