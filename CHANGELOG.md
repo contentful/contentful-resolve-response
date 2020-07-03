@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/contentful/contentful-resolve-response/compare/v1.1.2...v1.2.0) (2020-07-03)
+
+
+### Bug Fixes
+
+* **get-link:** better performance on large input ([9b1bab0](https://github.com/contentful/contentful-resolve-response/commit/9b1bab06b2ff8d5037e66d7bdd131a51e4d82062))
+* Update deps ([587f04c](https://github.com/contentful/contentful-resolve-response/commit/587f04ccd36d62d0241721ee7bbcd00c4f0cfcdc))
+* Update Nodejs version ([d4550e0](https://github.com/contentful/contentful-resolve-response/commit/d4550e0b2941a3080b06954ac0d7eb9da4f8a6cd))
+* **array-fields:** proper unresolved removal while iterating array ([#19](https://github.com/contentful/contentful-resolve-response/issues/19)) ([39bf40d](https://github.com/contentful/contentful-resolve-response/commit/39bf40d7e38f5e3a0bce96491448c333d128b850))
+* **compatibility:** indexOf instead of includes([#18](https://github.com/contentful/contentful-resolve-response/issues/18)) ([1c3b277](https://github.com/contentful/contentful-resolve-response/commit/1c3b277c2189b966841a86da276de018618aa1ce))
+
+
+### Features
+
+* bump to 1.2.0 for semantic-release ([08a5c8a](https://github.com/contentful/contentful-resolve-response/commit/08a5c8aca742e545a65f27ca32b14d17b618a76b))
+
 ## [1.1.3](https://github.com/contentful/contentful-resolve-response/compare/v1.1.2...v1.1.3) (2020-07-03)
 
 
