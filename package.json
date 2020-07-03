@@ -13,7 +13,9 @@
     "precommit": "npm run lint",
     "prepush": "npm run test",
     "prepublishOnly": "npm run build",
-    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\""
+    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
+    "commitlint-circle": "commitlint-circle",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,12 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "@contentful/eslint-config-backend": "^7.0.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@timbeyer/commitlint-circle": "^3.0.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
@@ -43,7 +50,8 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.0.5",
     "mocha": "^6.2.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1"
   },
   "files": [
     "dist"
@@ -53,5 +61,31 @@
   "bugs": {
     "url": "https://github.com/contentful/contentful-resolve-response/issues"
   },
-  "homepage": "https://github.com/contentful/contentful-resolve-response"
+  "homepage": "https://github.com/contentful/contentful-resolve-response",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "build",
+              "scope": "deps",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/git",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  }
 }
