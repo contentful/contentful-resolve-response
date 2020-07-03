@@ -13,7 +13,8 @@
     "precommit": "npm run lint",
     "prepush": "npm run test",
     "prepublishOnly": "npm run build",
-    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\""
+    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
+    "commitlint-circle": "commitlint-circle"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,10 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "@contentful/eslint-config-backend": "^7.0.0",
+    "@timbeyer/commitlint-circle": "^3.0.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
@@ -53,5 +57,10 @@
   "bugs": {
     "url": "https://github.com/contentful/contentful-resolve-response/issues"
   },
-  "homepage": "https://github.com/contentful/contentful-resolve-response"
+  "homepage": "https://github.com/contentful/contentful-resolve-response",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
 }
