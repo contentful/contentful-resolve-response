@@ -10,20 +10,14 @@ const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol
 const isLink = (object) => object && object.sys && object.sys.type === 'Link'
 
 /**
- * findNormalizableLinkInArray
+ * Creates a string key for lookup in entityMap
  *
- * @param array
- * @param predicate
- * @return {*}
+ * @param {*} sys
+ * @param {String} sys.type
+ * @param {String} sys.id
+ * @return {String}
  */
-const findNormalizableLinkInArray = (array, predicate) => {
-  for (let i = 0, len = array.length; i < len; i++) {
-    if (predicate(array[i])) {
-      return array[i]
-    }
-  }
-  return UNRESOLVED_LINK
-}
+const makeLookupKey = (sys) => `${sys.type}!${sys.id}`
 
 /**
  * getLink Function
@@ -32,12 +26,11 @@ const findNormalizableLinkInArray = (array, predicate) => {
  * @param link
  * @return {undefined}
  */
-const getLink = (allEntries, link) => {
+const getLink = (entityMap, link) => {
   const { linkType: type, id } = link.sys
+  const lookupKey = makeLookupKey({ type, id })
 
-  const predicate = ({ sys }) => sys.type === type && sys.id === id
-
-  return findNormalizableLinkInArray(allEntries, predicate)
+  return entityMap.get(lookupKey) || UNRESOLVED_LINK
 }
 
 /**
@@ -83,8 +76,8 @@ const walkMutate = (input, predicate, mutator, removeUnresolved) => {
   return input
 }
 
-const normalizeLink = (allEntries, link, removeUnresolved) => {
-  const resolvedLink = getLink(allEntries, link)
+const normalizeLink = (entityMap, link, removeUnresolved) => {
+  const resolvedLink = getLink(entityMap, link)
   if (resolvedLink === UNRESOLVED_LINK) {
     return removeUnresolved ? resolvedLink : link
   }
@@ -126,6 +119,8 @@ const resolveResponse = (response, options) => {
 
   const allEntries = [...responseClone.items, ...allIncludes]
 
+  const entityMap = new Map(allEntries.map((entity) => [makeLookupKey(entity.sys), entity]))
+
   allEntries.forEach((item) => {
     const entryObject = makeEntryObject(item, options.itemEntryPoints)
 
@@ -134,7 +129,7 @@ const resolveResponse = (response, options) => {
       walkMutate(
         entryObject,
         isLink,
-        (link) => normalizeLink(allEntries, link, options.removeUnresolved),
+        (link) => normalizeLink(entityMap, link, options.removeUnresolved),
         options.removeUnresolved
       )
     )
