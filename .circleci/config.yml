@@ -1,0 +1,32 @@
+version: 2.1
+executors:
+  node:
+    docker:
+      - image: node:10
+
+jobs:
+  test:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tests
+          command: npm test
+  lint:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Lint project
+          command: npm run lint
+workflows:
+  test:
+    jobs:
+      - lint
+      - test
