@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep'
+import copy from 'fast-copy'
 
 const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol()
 
@@ -111,7 +111,7 @@ const resolveResponse = (response, options) => {
   if (!response.items) {
     return []
   }
-  const responseClone = cloneDeep(response)
+  const responseClone = copy(response)
   const allIncludes = Object.keys(responseClone.includes || {}).reduce(
     (all, type) => [...all, ...response.includes[type]],
     []
