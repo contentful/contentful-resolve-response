@@ -65,6 +65,7 @@ const walkMutate = (input, predicate, mutator, removeUnresolved) => {
 
   if (input && typeof input === 'object') {
     for (const key in input) {
+      // eslint-disable-next-line no-prototype-builtins
       if (input.hasOwnProperty(key)) {
         input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved)
       }
@@ -101,7 +102,7 @@ const makeEntryObject = (item, itemEntryPoints) => {
  * resolveResponse Function
  * Resolves contentful response to normalized form.
  * @param {Object} response Contentful response
- * @param {Object} options
+ * @param {{removeUnresolved: Boolean, itemEntryPoints: Array<String>}|{}} options
  * @param {Boolean} options.removeUnresolved - Remove unresolved links default:false
  * @param {Array<String>} options.itemEntryPoints - Resolve links only in those item properties
  * @return {Object}

@@ -404,8 +404,8 @@ describe('Resolve a', function () {
       ],
     }
     const resolved = resolveResponse({ items, includes })
-    equal(resolved[0].fields.animal['en'].fields.name['en'], includes.Entry[0].fields.name['en'], 'single ref')
-    equal(resolved[0].fields.animals['en'][0].fields.name['en'], includes.Entry[0].fields.name['en'], 'multiple refs')
+    equal(resolved[0].fields.animal.en.fields.name.en, includes.Entry[0].fields.name.en, 'single ref')
+    equal(resolved[0].fields.animals.en[0].fields.name.en, includes.Entry[0].fields.name.en, 'multiple refs')
   })
 
   it('resolves items that are not entries', function () {
