@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
-    "husky": "^3.0.5",
+    "husky": "^7.0.4",
     "mocha": "^6.2.0",
     "prettier": "^2.5.1",
     "semantic-release": "^19.0.2"
