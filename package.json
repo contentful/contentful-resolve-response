@@ -33,7 +33,7 @@
     "@contentful/eslint-config-backend": "^10.0.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@timbeyer/commitlint-circle": "^3.0.0",
+    "@timbeyer/commitlint-circle": "^4.1.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
