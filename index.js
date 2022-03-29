@@ -7,7 +7,7 @@ const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol
  * Checks if the object has sys.type "Link"
  * @param object
  */
-const isLink = (object) => object && object.sys && object.sys.type === 'Link'
+const isLink = (object) => object && object.sys && object.sys.type === 'Link' && object.sys.linkType !== 'ContentType';
 
 /**
  * Creates a string key for lookup in entityMap
