@@ -1,3 +1,10 @@
+## [1.3.6](https://github.com/contentful/contentful-resolve-response/compare/v1.3.5...v1.3.6) (2022-04-20)
+
+
+### Bug Fixes
+
+* **dep:** bump fast-copy to 2.1.3 ([2506c7c](https://github.com/contentful/contentful-resolve-response/commit/2506c7cb90d3e957dcfdd5364291abd3f44cfe8c))
+
 ## [1.3.5](https://github.com/contentful/contentful-resolve-response/compare/v1.3.4...v1.3.5) (2022-04-12)
 
 ## [1.3.4](https://github.com/contentful/contentful-resolve-response/compare/v1.3.3...v1.3.4) (2022-04-08)
