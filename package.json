@@ -25,7 +25,7 @@
     "node": ">=4.7.2"
   },
   "dependencies": {
-    "fast-copy": "^3.0.0"
+    "fast-copy": "^2.1.7"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
