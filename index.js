@@ -10,27 +10,64 @@ const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol
 const isLink = (object) => object && object.sys && object.sys.type === 'Link'
 
 /**
- * Creates a string key for lookup in entityMap
+ * isResourceLink Function
+ * Checks if the object has sys.type "Resource"
+ * @param object
+ */
+const isResourceLink = (object) => object && object.sys && object.sys.type === 'ResourceLink'
+
+/**
+ * Creates a key with spaceId and a key without for entityMap
  *
  * @param {*} sys
  * @param {String} sys.type
  * @param {String} sys.id
- * @return {String}
+ * @param {*} sys.space
+ * @param {*} sys.space.sys
+ * @param {String} sys.space.id
+ * @return {string[]}
  */
-const makeLookupKey = (sys) => `${sys.type}!${sys.id}`
+const makeEntityMapKeys = (sys) =>
+  sys.space ? [`${sys.type}!${sys.id}`, `${sys.space.sys.id}!${sys.type}!${sys.id}`] : [`${sys.type}!${sys.id}`]
 
 /**
- * getLink Function
+ * Looks up in entityMap
  *
- * @param response
+ * @param entityMap
+ * @param {*} sys
+ * @param {String} sys.type
+ * @param {String} sys.linkType
+ * @param {String} sys.id
+ * @param {String} sys.urn
+ * @return {String}
+ */
+const lookupInEntityMap = (entityMap, sys) => {
+  const { id, linkType, spaceId } = sys
+  if (spaceId) {
+    return entityMap.get(`${spaceId}!${linkType}!${id}`)
+  }
+  return entityMap.get(`${linkType}!${id}`)
+}
+
+/**
+ * getResolvedLink Function
+ *
+ * @param entityMap
  * @param link
  * @return {undefined}
  */
-const getLink = (entityMap, link) => {
-  const { linkType: type, id } = link.sys
-  const lookupKey = makeLookupKey({ type, id })
-
-  return entityMap.get(lookupKey) || UNRESOLVED_LINK
+const getResolvedLink = (entityMap, link) => {
+  const { type, linkType } = link.sys
+  if (type === 'ResourceLink') {
+    const { urn } = link.sys
+    const paths = urn.split('/')
+    const spaceId = paths[1]
+    const id = paths[3]
+    const extractedLinkType = linkType.split(':')[1]
+    return lookupInEntityMap(entityMap, { linkType: extractedLinkType, id, spaceId }) || UNRESOLVED_LINK
+  }
+  const { id } = link.sys
+  return lookupInEntityMap(entityMap, { linkType, id }) || UNRESOLVED_LINK
 }
 
 /**
@@ -56,6 +93,7 @@ const cleanUpLinks = (input) => {
  * @param input
  * @param predicate
  * @param mutator
+ * @param removeUnresolved
  * @return {*}
  */
 const walkMutate = (input, predicate, mutator, removeUnresolved) => {
@@ -78,7 +116,7 @@ const walkMutate = (input, predicate, mutator, removeUnresolved) => {
 }
 
 const normalizeLink = (entityMap, link, removeUnresolved) => {
-  const resolvedLink = getLink(entityMap, link)
+  const resolvedLink = getResolvedLink(entityMap, link)
   if (resolvedLink === UNRESOLVED_LINK) {
     return removeUnresolved ? resolvedLink : link
   }
@@ -120,7 +158,14 @@ const resolveResponse = (response, options) => {
 
   const allEntries = [...responseClone.items, ...allIncludes]
 
-  const entityMap = new Map(allEntries.map((entity) => [makeLookupKey(entity.sys), entity]))
+  const entityMap = new Map(
+    allEntries.reduce((acc, entity) => {
+      const keys = makeEntityMapKeys(entity.sys)
+      acc.push([keys[0], entity])
+      acc.push([keys[1], entity])
+      return acc
+    }, [])
+  )
 
   allEntries.forEach((item) => {
     const entryObject = makeEntryObject(item, options.itemEntryPoints)
@@ -129,7 +174,7 @@ const resolveResponse = (response, options) => {
       item,
       walkMutate(
         entryObject,
-        isLink,
+        (x) => isLink(x) || isResourceLink(x),
         (link) => normalizeLink(entityMap, link, options.removeUnresolved),
         options.removeUnresolved
       )

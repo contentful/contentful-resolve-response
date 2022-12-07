@@ -11,7 +11,17 @@ describe('Resolve a', function () {
   it('response with links without matching in includes should remain by default', function () {
     const items = [
       {
-        sys: { type: 'Entry', locale: 'en-US' },
+        sys: {
+          type: 'Entry',
+          locale: 'en-US',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           animal: { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' } },
         },
@@ -25,7 +35,17 @@ describe('Resolve a', function () {
   it('response with links without matching in includes should not remain given removeUnresolved: true', function () {
     const items = [
       {
-        sys: { type: 'Entry', locale: 'en-US' },
+        sys: {
+          type: 'Entry',
+          locale: 'en-US',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           animal: { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' } },
         },
@@ -93,7 +113,18 @@ describe('Resolve a', function () {
     const includes = {
       entries: [
         {
-          sys: { type: 'Entry', id: 'Parrot', locale: 'en-US' },
+          sys: {
+            type: 'Entry',
+            id: 'Parrot',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: { name: 'Parrot' },
         },
       ],
@@ -125,7 +156,15 @@ describe('Resolve a', function () {
     const response = {
       items: [
         {
-          sys: {},
+          sys: {
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             linkField: {
               sys: { type: 'Link', linkType: 'Piglet', id: 'oink' },
@@ -134,7 +173,21 @@ describe('Resolve a', function () {
         },
       ],
       includes: {
-        Piglet: [{ sys: { type: 'Piglet', id: 'oink' } }],
+        Piglet: [
+          {
+            sys: {
+              type: 'Piglet',
+              id: 'oink',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
+          },
+        ],
       },
     }
     const resolved = resolveResponse(response)
@@ -146,20 +199,53 @@ describe('Resolve a', function () {
     const response = {
       items: [
         {
-          sys: { type: 'Entry', locale: 'en-US', id: 'link-to-oink' },
+          sys: {
+            type: 'Entry',
+            locale: 'en-US',
+            id: 'link-to-oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
           },
         },
         {
-          sys: { type: 'Animal', id: 'parrot', locale: 'en-US' },
+          sys: {
+            type: 'Animal',
+            id: 'parrot',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: { name: 'Parrot' },
         },
       ],
       includes: {
         Animal: [
           {
-            sys: { type: 'Animal', id: 'oink', locale: 'en-US' },
+            sys: {
+              type: 'Animal',
+              id: 'oink',
+              locale: 'en-US',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
             fields: { name: 'Pig', friend: { sys: { type: 'Link', linkType: 'Animal', id: 'parrot' } } },
           },
         ],
@@ -180,7 +266,17 @@ describe('Resolve a', function () {
     const response = {
       items: [
         {
-          sys: { type: 'Entry', locale: 'en-US' },
+          sys: {
+            type: 'Entry',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
           },
@@ -189,11 +285,33 @@ describe('Resolve a', function () {
       includes: {
         Animal: [
           {
-            sys: { type: 'Animal', id: 'oink', locale: 'en-US' },
+            sys: {
+              type: 'Animal',
+              id: 'oink',
+              locale: 'en-US',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
             fields: { name: 'Pig', friend: { sys: { type: 'Link', linkType: 'Animal', id: 'parrot' } } },
           },
           {
-            sys: { type: 'Animal', id: 'parrot', locale: 'en-US' },
+            sys: {
+              type: 'Animal',
+              id: 'parrot',
+              locale: 'en-US',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
             fields: { name: 'Parrot', friend: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } } },
           },
         ],
@@ -215,13 +333,35 @@ describe('Resolve a', function () {
     const response = {
       items: [
         {
-          sys: { type: 'Entry', locale: 'en-US', id: 'one' },
+          sys: {
+            type: 'Entry',
+            locale: 'en-US',
+            id: 'one',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             linkfield: { sys: { type: 'Link', linkType: 'Entry', id: 'two' } },
           },
         },
         {
-          sys: { type: 'Entry', locale: 'en-US', id: 'two' },
+          sys: {
+            type: 'Entry',
+            locale: 'en-US',
+            id: 'two',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             linkfield: { sys: { type: 'Link', linkType: 'Entry', id: 'one' } },
           },
@@ -243,7 +383,18 @@ describe('Resolve a', function () {
     const response = {
       items: [
         {
-          sys: { type: 'Entry', locale: 'en-US', id: 'A' },
+          sys: {
+            type: 'Entry',
+            locale: 'en-US',
+            id: 'A',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             linkfield: [
               { sys: { type: 'Link', linkType: 'Entry', id: 'X' } },
@@ -257,19 +408,52 @@ describe('Resolve a', function () {
       includes: {
         Entry: [
           {
-            sys: { type: 'Entry', locale: 'en-US', id: 'X' },
+            sys: {
+              type: 'Entry',
+              locale: 'en-US',
+              id: 'X',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
             fields: {
               linkfield: [{ sys: { type: 'Link', linkType: 'Entry', id: 'A' } }],
             },
           },
           {
-            sys: { type: 'Entry', locale: 'en-US', id: 'Y' },
+            sys: {
+              type: 'Entry',
+              locale: 'en-US',
+              id: 'Y',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
             fields: {
               linkfield: [{ sys: { type: 'Link', linkType: 'Entry', id: 'X' } }],
             },
           },
           {
-            sys: { type: 'Entry', locale: 'en-US', id: 'Z' },
+            sys: {
+              type: 'Entry',
+              locale: 'en-US',
+              id: 'Z',
+              space: {
+                sys: {
+                  type: 'Link',
+                  linkType: 'Space',
+                  id: 'someSpaceId',
+                },
+              },
+            },
             fields: {
               linkfield: [{ sys: { type: 'Link', linkType: 'Entry', id: 'Y' } }],
             },
@@ -312,14 +496,34 @@ describe('Resolve a', function () {
   it('response with links should resolve complex references between items and includes', function () {
     const items = [
       {
-        sys: { type: 'Entry', locale: 'en-US' },
+        sys: {
+          type: 'Entry',
+          locale: 'en-US',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
           anotheranimal: { sys: { type: 'Link', linkType: 'Animal', id: 'middle-parrot' } },
         },
       },
       {
-        sys: { type: 'Entry', locale: 'en-US' },
+        sys: {
+          type: 'Entry',
+          locale: 'en-US',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           birds: [
             { sys: { type: 'Link', linkType: 'Animal', id: 'parrot' } },
@@ -329,7 +533,16 @@ describe('Resolve a', function () {
         },
       },
       {
-        sys: { type: 'Entry' },
+        sys: {
+          type: 'Entry',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           animal: {
             'en-US': { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
@@ -343,22 +556,66 @@ describe('Resolve a', function () {
     const includes = {
       Animal: [
         {
-          sys: { type: 'Animal', id: 'oink', locale: 'en-US' },
+          sys: {
+            type: 'Animal',
+            id: 'oink',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             name: 'Pig',
             friend: { sys: { type: 'Link', linkType: 'Animal', id: 'groundhog' } },
           },
         },
         {
-          sys: { type: 'Animal', id: 'groundhog', locale: 'en-US' },
+          sys: {
+            type: 'Animal',
+            id: 'groundhog',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: { name: 'Phil' },
         },
         {
-          sys: { type: 'Animal', id: 'parrot', locale: 'en-US' },
+          sys: {
+            type: 'Animal',
+            id: 'parrot',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: { name: 'Parrot' },
         },
         {
-          sys: { type: 'Animal', id: 'aussie-parrot', locale: 'en-US' },
+          sys: {
+            type: 'Animal',
+            id: 'aussie-parrot',
+            locale: 'en-US',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: { name: 'Aussie Parrot' },
         },
       ],
@@ -384,7 +641,16 @@ describe('Resolve a', function () {
   it('response with links should resolve with unlocalised entries ("locale: *" query)', function () {
     const items = [
       {
-        sys: { type: 'Entry' },
+        sys: {
+          type: 'Entry',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           animal: { en: { sys: { type: 'Link', linkType: 'Entry', id: 'oink' } } },
           animals: { en: [{ sys: { type: 'Link', linkType: 'Entry', id: 'oink' } }] },
@@ -394,7 +660,17 @@ describe('Resolve a', function () {
     const includes = {
       Entry: [
         {
-          sys: { type: 'Entry', id: 'oink' },
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             name: {
               en: 'Pig',
@@ -411,7 +687,9 @@ describe('Resolve a', function () {
   it('resolves items that are not entries', function () {
     const items = [
       {
-        sys: { type: 'Space' },
+        sys: {
+          type: 'Space',
+        },
         name: 'My Space',
         locales: [
           { sys: { type: 'Link', linkType: 'Locale', id: 'german' } },
@@ -422,12 +700,18 @@ describe('Resolve a', function () {
     const includes = {
       Locale: [
         {
-          sys: { type: 'Locale', id: 'german' },
+          sys: {
+            type: 'Locale',
+            id: 'german',
+          },
           name: 'German',
           code: 'de-DE',
         },
         {
-          sys: { type: 'Locale', id: 'us-english' },
+          sys: {
+            type: 'Locale',
+            id: 'us-english',
+          },
           name: 'American English',
           code: 'en-US',
         },
@@ -440,7 +724,16 @@ describe('Resolve a', function () {
   it('resolves objects with a `sys` deep inside (e.g. a JSON) field value', function () {
     const items = [
       {
-        sys: { type: 'Entry' },
+        sys: {
+          type: 'Entry',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
         fields: {
           animalJson: { farm: { stables: [{ animal: { sys: { type: 'Link', linkType: 'Entry', id: 'oink' } } }] } },
         },
@@ -449,7 +742,17 @@ describe('Resolve a', function () {
     const includes = {
       Entry: [
         {
-          sys: { type: 'Entry', id: 'oink' },
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someSpaceId',
+              },
+            },
+          },
           fields: {
             name: 'Pig',
           },
@@ -458,5 +761,254 @@ describe('Resolve a', function () {
     }
     const resolved = resolveResponse({ items, includes })
     equal(resolved[0].fields.animalJson.farm.stables[0].animal.fields.name, includes.Entry[0].fields.name)
+  })
+
+  it('resolves resource links', function () {
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          id: 'parent',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
+        fields: {
+          crossSpaceReference: {
+            'en-US': {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/someOtherSpaceId/entries/oink',
+              },
+            },
+          },
+          crossSpaceReference2: {
+            'en-US': {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/someOtherSpaceId/entries/oink',
+              },
+            },
+          },
+        },
+      },
+    ]
+    const includes = {
+      Entry: [
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someOtherSpaceId',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig',
+          },
+        },
+      ],
+    }
+
+    const resolved = resolveResponse({ items, includes })
+
+    deepEqual(resolved[0].fields.crossSpaceReference['en-US'], includes.Entry[0])
+    deepEqual(resolved[0].fields.crossSpaceReference2['en-US'], includes.Entry[0])
+  })
+
+  it('resolves resource link array', function () {
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          id: 'parent',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
+        fields: {
+          crossSpaceReferenceArray: {
+            'en-US': [
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/someOtherSpaceId/entries/oink',
+                },
+              },
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/anotherSpaceId/entries/oink',
+                },
+              },
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/anotherSpaceId/entries/woof',
+                },
+              },
+            ],
+          },
+        },
+      },
+    ]
+    const includes = {
+      Entry: [
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someOtherSpaceId',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig in some other space',
+          },
+        },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'anotherSpaceId',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig in another space',
+          },
+        },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'woof',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'anotherSpaceId',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Dog in another space',
+          },
+        },
+      ],
+    }
+
+    const resolved = resolveResponse({ items, includes })
+
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['en-US'][0], includes.Entry[0])
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['en-US'][1], includes.Entry[1])
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['en-US'][2], includes.Entry[2])
+  })
+
+  it('resolves resource links with different locales', function () {
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          id: 'parent',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
+        fields: {
+          crossSpaceReference: {
+            'en-US': {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/someOtherSpaceId/entries/oink',
+              },
+            },
+            'de-DE': {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/anotherSpaceId/entries/oink',
+              },
+            },
+          },
+        },
+      },
+    ]
+    const includes = {
+      Entry: [
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someOtherSpaceId',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig',
+          },
+        },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'anotherSpaceId',
+              },
+            },
+            locale: 'de-DE',
+          },
+          fields: {
+            name: 'Pig in another space',
+          },
+        },
+      ],
+    }
+
+    const resolved = resolveResponse({ items, includes })
+
+    deepEqual(resolved[0].fields.crossSpaceReference['en-US'], includes.Entry[0])
+    deepEqual(resolved[0].fields.crossSpaceReference['de-DE'], includes.Entry[1])
   })
 })
