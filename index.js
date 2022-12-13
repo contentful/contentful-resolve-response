@@ -11,7 +11,7 @@ const isLink = (object) => object && object.sys && object.sys.type === 'Link'
 
 /**
  * isResourceLink Function
- * Checks if the object has sys.type "Resource"
+ * Checks if the object has sys.type "ResourceLink"
  * @param object
  */
 const isResourceLink = (object) => object && object.sys && object.sys.type === 'ResourceLink'
@@ -34,19 +34,19 @@ const makeEntityMapKeys = (sys) =>
  * Looks up in entityMap
  *
  * @param entityMap
- * @param {*} sys
- * @param {String} sys.type
- * @param {String} sys.linkType
- * @param {String} sys.id
- * @param {String} sys.urn
+ * @param {*} linkData
+ * @param {String} linkData.type
+ * @param {String} linkData.linkType
+ * @param {String} linkData.id
+ * @param {String} linkData.urn
  * @return {String}
  */
-const lookupInEntityMap = (entityMap, sys) => {
-  const { id, linkType, spaceId } = sys
+const lookupInEntityMap = (entityMap, linkData) => {
+  const { entryId, linkType, spaceId } = linkData
   if (spaceId) {
-    return entityMap.get(`${spaceId}!${linkType}!${id}`)
+    return entityMap.get(`${spaceId}!${linkType}!${entryId}`)
   }
-  return entityMap.get(`${linkType}!${id}`)
+  return entityMap.get(`${linkType}!${entryId}`)
 }
 
 /**
@@ -60,14 +60,16 @@ const getResolvedLink = (entityMap, link) => {
   const { type, linkType } = link.sys
   if (type === 'ResourceLink') {
     const { urn } = link.sys
-    const paths = urn.split('/')
-    const spaceId = paths[1]
-    const id = paths[3]
+    const regExp = /.*:spaces\/(?<spaceId>[A-Za-z0-9]*)\/entries\/(?<entryId>[A-Za-z0-9]*)/
+    if (!regExp.test(urn)) {
+      return UNRESOLVED_LINK
+    }
+    const { spaceId, entryId } = urn.match(regExp).groups
     const extractedLinkType = linkType.split(':')[1]
-    return lookupInEntityMap(entityMap, { linkType: extractedLinkType, id, spaceId }) || UNRESOLVED_LINK
+    return lookupInEntityMap(entityMap, { linkType: extractedLinkType, entryId, spaceId }) || UNRESOLVED_LINK
   }
-  const { id } = link.sys
-  return lookupInEntityMap(entityMap, { linkType, id }) || UNRESOLVED_LINK
+  const { id: entryId } = link.sys
+  return lookupInEntityMap(entityMap, { linkType, entryId }) || UNRESOLVED_LINK
 }
 
 /**
@@ -160,9 +162,8 @@ const resolveResponse = (response, options) => {
 
   const entityMap = new Map(
     allEntries.reduce((acc, entity) => {
-      const keys = makeEntityMapKeys(entity.sys)
-      acc.push([keys[0], entity])
-      acc.push([keys[1], entity])
+      const entries = makeEntityMapKeys(entity.sys).map((key) => [key, entity])
+      acc.push(...entries)
       return acc
     }, [])
   )
