@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/contentful/contentful-resolve-response/compare/v1.3.12...v1.4.0) (2022-12-13)
+
+
+### Bug Fixes
+
+* remove undefined keys, urn validation ([b7b30ea](https://github.com/contentful/contentful-resolve-response/commit/b7b30ea9bac669b3649283d23cc7935284a144ec))
+
+
+### Features
+
+* resolve resource links ([d856e24](https://github.com/contentful/contentful-resolve-response/commit/d856e24400bd4da3bc4d3233333240891b3ca7f0))
+
 ## [1.3.12](https://github.com/contentful/contentful-resolve-response/compare/v1.3.11...v1.3.12) (2022-10-28)
 
 
