@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/contentful/contentful-resolve-response/compare/v1.6.0...v1.6.1) (2022-12-19)
+
+
+### Bug Fixes
+
+* fix cf vault config ([230f911](https://github.com/contentful/contentful-resolve-response/commit/230f91137296ca6094a3222f120f7321765355ed))
+
 # [1.6.0](https://github.com/contentful/contentful-resolve-response/compare/v1.5.0...v1.6.0) (2022-12-19)
 
 
