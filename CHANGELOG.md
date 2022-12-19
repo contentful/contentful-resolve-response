@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/contentful/contentful-resolve-response/compare/v1.6.1...v1.6.2) (2022-12-19)
+
+
+### Bug Fixes
+
+* fix vault service selection ([15a20b0](https://github.com/contentful/contentful-resolve-response/commit/15a20b08c26fba113fb2dbca5dab9516b21077ed))
+
 ## [1.6.1](https://github.com/contentful/contentful-resolve-response/compare/v1.6.0...v1.6.1) (2022-12-19)
 
 
