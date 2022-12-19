@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/contentful/contentful-resolve-response/compare/v1.4.0...v1.5.0) (2022-12-19)
+
+
+### Features
+
+* initial cf vault config ([c448fd1](https://github.com/contentful/contentful-resolve-response/commit/c448fd137274a442950cf8d450282a75c84bebf5))
+
 # [1.4.0](https://github.com/contentful/contentful-resolve-response/compare/v1.3.12...v1.4.0) (2022-12-13)
 
 
