@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/contentful/contentful-resolve-response/compare/v1.5.0...v1.6.0) (2022-12-19)
+
+
+### Features
+
+* config cf vault CICD ([65b12b7](https://github.com/contentful/contentful-resolve-response/commit/65b12b79651239b14855e4f01405ca7219ad4170))
+
 # [1.5.0](https://github.com/contentful/contentful-resolve-response/compare/v1.4.0...v1.5.0) (2022-12-19)
 
 
