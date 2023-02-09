@@ -16,3 +16,6 @@ updates:
           # version 3.x is causing import errors on depending packages
         versions:
         - ">=3.0.0"
+      - dependency-name: "semantic-release"
+        versions:
+        - ">=20.0.0"
