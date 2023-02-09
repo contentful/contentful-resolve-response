@@ -60,11 +60,11 @@ const getResolvedLink = (entityMap, link) => {
   const { type, linkType } = link.sys
   if (type === 'ResourceLink') {
     const { urn } = link.sys
-    const regExp = /.*:spaces\/(?<spaceId>[A-Za-z0-9]*)\/entries\/(?<entryId>[A-Za-z0-9]*)/
+    const regExp = /.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
     if (!regExp.test(urn)) {
       return UNRESOLVED_LINK
     }
-    const { spaceId, entryId } = urn.match(regExp).groups
+    const [_, spaceId, entryId] = urn.match(regExp)
     const extractedLinkType = linkType.split(':')[1]
     return lookupInEntityMap(entityMap, { linkType: extractedLinkType, entryId, spaceId }) || UNRESOLVED_LINK
   }
