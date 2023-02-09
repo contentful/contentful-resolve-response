@@ -1,3 +1,11 @@
+## [1.6.3](https://github.com/contentful/contentful-resolve-response/compare/v1.6.2...v1.6.3) (2023-02-09)
+
+
+### Bug Fixes
+
+* **build:** downgrade to semantic-release 19 to build with node 16 ([c09d54d](https://github.com/contentful/contentful-resolve-response/commit/c09d54dd5333e7426fc4297f259faa8365678c04))
+* don't use regex named groups [DANTE-852] ([#180](https://github.com/contentful/contentful-resolve-response/issues/180)) ([b44ce87](https://github.com/contentful/contentful-resolve-response/commit/b44ce875c33048d2c19c9a7ca7dd341bd1a237da))
+
 ## [1.6.2](https://github.com/contentful/contentful-resolve-response/compare/v1.6.1...v1.6.2) (2022-12-19)
 
 
