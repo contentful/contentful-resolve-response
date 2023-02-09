@@ -64,7 +64,7 @@ const getResolvedLink = (entityMap, link) => {
     if (!regExp.test(urn)) {
       return UNRESOLVED_LINK
     }
-    const [ _, spaceId, entryId ] = urn.match(regExp)
+    const [_, spaceId, entryId] = urn.match(regExp)
     const extractedLinkType = linkType.split(':')[1]
     return lookupInEntityMap(entityMap, { linkType: extractedLinkType, entryId, spaceId }) || UNRESOLVED_LINK
   }
