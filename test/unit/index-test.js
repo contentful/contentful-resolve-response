@@ -773,7 +773,7 @@ describe('Resolve a', function () {
             sys: {
               type: 'Link',
               linkType: 'Space',
-              id: 'someSpaceId',
+              id: 'currentSpaceId',
             },
           },
         },
@@ -800,7 +800,7 @@ describe('Resolve a', function () {
       },
     ]
     const includes = {
-      Entry: [
+      'Contentful:Entry': [
         {
           sys: {
             type: 'Entry',
@@ -823,8 +823,8 @@ describe('Resolve a', function () {
 
     const resolved = resolveResponse({ items, includes })
 
-    deepEqual(resolved[0].fields.crossSpaceReference['en-US'], includes.Entry[0])
-    deepEqual(resolved[0].fields.crossSpaceReference2['en-US'], includes.Entry[0])
+    deepEqual(resolved[0].fields.crossSpaceReference['en-US'], includes['Contentful:Entry'][0])
+    deepEqual(resolved[0].fields.crossSpaceReference2['en-US'], includes['Contentful:Entry'][0])
   })
 
   it('resolves resource link array', function () {

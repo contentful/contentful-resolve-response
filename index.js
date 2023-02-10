@@ -25,10 +25,15 @@ const isResourceLink = (object) => object && object.sys && object.sys.type === '
  * @param {*} sys.space
  * @param {*} sys.space.sys
  * @param {String} sys.space.id
- * @return {string[]}
+ * @return {string}
  */
-const makeEntityMapKeys = (sys) =>
-  sys.space ? [`${sys.type}!${sys.id}`, `${sys.space.sys.id}!${sys.type}!${sys.id}`] : [`${sys.type}!${sys.id}`]
+function makeEntityMapKey(linkType, sys) {
+  if (linkType === 'ResourceLink') {
+    return `${linkType}|${sys.space.sys.id}|${sys.id}`
+  }
+
+  return `${linkType}|${sys.id}`
+}
 
 /**
  * Looks up in entityMap
@@ -43,10 +48,28 @@ const makeEntityMapKeys = (sys) =>
  */
 const lookupInEntityMap = (entityMap, linkData) => {
   const { entryId, linkType, spaceId } = linkData
-  if (spaceId) {
-    return entityMap.get(`${spaceId}!${linkType}!${entryId}`)
+  const key = spaceId ? `${linkType}|${spaceId}|${entryId}` : `${linkType}|${entryId}`
+
+  return entityMap.get(key)
+}
+
+function getResolverProperties(link) {
+  const { type, linkType } = link.sys
+
+  if (type === 'ResourceLink') {
+    const { urn } = link.sys
+    const matches = urn.match(/.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/)
+    if (!matches) {
+      return UNRESOLVED_LINK
+    }
+    const [_, spaceId, entryId] = matches
+
+    return { linkType, spaceId, entryId }
   }
-  return entityMap.get(`${linkType}!${entryId}`)
+
+  const spaceId = 'space' in link.sys ? link.sys.space.sys.id : null
+
+  return { linkType, spaceId, entryId: link.sys.id }
 }
 
 /**
@@ -57,19 +80,9 @@ const lookupInEntityMap = (entityMap, linkData) => {
  * @return {undefined}
  */
 const getResolvedLink = (entityMap, link) => {
-  const { type, linkType } = link.sys
-  if (type === 'ResourceLink') {
-    const { urn } = link.sys
-    const regExp = /.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
-    if (!regExp.test(urn)) {
-      return UNRESOLVED_LINK
-    }
-    const [_, spaceId, entryId] = urn.match(regExp)
-    const extractedLinkType = linkType.split(':')[1]
-    return lookupInEntityMap(entityMap, { linkType: extractedLinkType, entryId, spaceId }) || UNRESOLVED_LINK
-  }
-  const { id: entryId } = link.sys
-  return lookupInEntityMap(entityMap, { linkType, entryId }) || UNRESOLVED_LINK
+  const { linkType, entryId, spaceId } = getResolverProperties(link)
+
+  return lookupInEntityMap(entityMap, { linkType, spaceId, entryId }) || UNRESOLVED_LINK
 }
 
 /**
@@ -153,22 +166,19 @@ const resolveResponse = (response, options) => {
     return []
   }
   const responseClone = copy(response)
-  const allIncludes = Object.keys(responseClone.includes || {}).reduce(
-    (all, type) => [...all, ...response.includes[type]],
-    []
-  )
 
-  const allEntries = [...responseClone.items, ...allIncludes]
+  const mainItems = [...responseClone.items].reduce((acc, entity) => {
+    const key = makeEntityMapKey(entity.sys.type, entity.sys)
+    acc.push([key, entity])
+    return acc
+  }, [])
+  const includedItems = Object.entries(response.includes || {}).reduce((acc, [linkType, entities]) => {
+    acc.push(...entities.map((entity) => [makeEntityMapKey(linkType, entity.sys), entity]))
+    return acc
+  }, [])
 
-  const entityMap = new Map(
-    allEntries.reduce((acc, entity) => {
-      const entries = makeEntityMapKeys(entity.sys).map((key) => [key, entity])
-      acc.push(...entries)
-      return acc
-    }, [])
-  )
-
-  allEntries.forEach((item) => {
+  const entityMap = new Map([...mainItems, ...includedItems])
+  responseClone.items.forEach((item) => {
     const entryObject = makeEntryObject(item, options.itemEntryPoints)
 
     Object.assign(
