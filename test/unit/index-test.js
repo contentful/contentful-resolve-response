@@ -1011,4 +1011,37 @@ describe('Resolve a', function () {
     deepEqual(resolved[0].fields.crossSpaceReference['en-US'], includes.Entry[0])
     deepEqual(resolved[0].fields.crossSpaceReference['de-DE'], includes.Entry[1])
   })
+
+  it(`can not resolve entities without sys property`, () => {
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          locale: 'en-US',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+        },
+        fields: {
+          animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
+        },
+      },
+    ]
+    const includes = {
+      Animal: [
+        {
+          fields: {
+            name: 'Pig',
+          },
+        },
+      ],
+    }
+
+    const resolved = resolveResponse({ items, includes })
+    deepEqual(resolved, items)
+  })
 })
