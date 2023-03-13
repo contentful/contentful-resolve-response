@@ -1,3 +1,10 @@
+## [1.6.5](https://github.com/contentful/contentful-resolve-response/compare/v1.6.4...v1.6.5) (2023-03-13)
+
+
+### Bug Fixes
+
+* guard against missing sys in included entities ([#191](https://github.com/contentful/contentful-resolve-response/issues/191)) ([3f71688](https://github.com/contentful/contentful-resolve-response/commit/3f716880b859d4b123dfe80a25a364a1d440c717))
+
 ## [1.6.4](https://github.com/contentful/contentful-resolve-response/compare/v1.6.3...v1.6.4) (2023-03-01)
 
 ## [1.6.3](https://github.com/contentful/contentful-resolve-response/compare/v1.6.2...v1.6.3) (2023-02-09)
