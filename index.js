@@ -158,7 +158,7 @@ const resolveResponse = (response, options) => {
     []
   )
 
-  const allEntries = [...responseClone.items, ...allIncludes]
+  const allEntries = [...responseClone.items, ...allIncludes].filter((entity) => Boolean(entity.sys))
 
   const entityMap = new Map(
     allEntries.reduce((acc, entity) => {
