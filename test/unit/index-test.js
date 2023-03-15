@@ -1,5 +1,7 @@
-const { deepEqual, notEqual, equal, notDeepEqual } = require('chai').assert
+const { deepEqual, notEqual, equal, notDeepEqual, doesNotThrow } = require('chai').assert
 const resolveResponse = require('../../index')
+const { deepFreeze } = require('./deep-freeze')
+const copy = require('fast-copy')
 
 describe('Resolve a', function () {
   it('empty response which returns an empty response', function () {
@@ -493,8 +495,8 @@ describe('Resolve a', function () {
     equal(resolved[0].fields.linkfield[2].fields.linkfield[0].sys.id, 'Y', 'sub link id')
   })
 
-  it('response with links should resolve complex references between items and includes', function () {
-    const items = [
+  const example = {
+    items: [
       {
         sys: {
           type: 'Entry',
@@ -552,8 +554,8 @@ describe('Resolve a', function () {
           },
         },
       },
-    ]
-    const includes = {
+    ],
+    includes: {
       Animal: [
         {
           sys: {
@@ -619,9 +621,11 @@ describe('Resolve a', function () {
           fields: { name: 'Aussie Parrot' },
         },
       ],
-    }
-
-    const resolved = resolveResponse({ items, includes })
+    },
+  }
+  it('response with links should resolve complex references between items and includes', function () {
+    const resolved = resolveResponse(example)
+    const { includes } = example
     deepEqual(resolved[0].fields.animal.sys, includes.Animal[0].sys, 'pig')
     deepEqual(resolved[0].fields.animal.fields.friend.sys, includes.Animal[1].sys, 'groundhog')
     deepEqual(resolved[0].fields.anotheranimal.sys.type, 'Link', 'first middle parrot not resolved')
@@ -1043,5 +1047,10 @@ describe('Resolve a', function () {
 
     const resolved = resolveResponse({ items, includes })
     deepEqual(resolved, items)
+  })
+
+  it('does not mutate input', function () {
+    const frozenCopy = deepFreeze(copy(example))
+    doesNotThrow(() => resolveResponse(frozenCopy))
   })
 })
