@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/contentful/contentful-resolve-response/compare/v1.6.5...v1.7.0) (2023-05-05)
+
+
+### Features
+
+* add catalog-info [PHX-2587] ([69eb898](https://github.com/contentful/contentful-resolve-response/commit/69eb898bc116a6bfc54009d8ba76e3c6aeb1b6f1))
+
 ## [1.6.5](https://github.com/contentful/contentful-resolve-response/compare/v1.6.4...v1.6.5) (2023-03-13)
 
 
