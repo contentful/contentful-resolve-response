@@ -1,3 +1,9 @@
+# Unreleased
+
+* eslint-plugin-prettier `^4.0.0"` => `4.2.1`
+* eslint-plugin-promise `^6.0.0"` => `6.1.1`
+* fast-copy `^2.1.7` => `3.0.1`
+
 # [1.7.0](https://github.com/contentful/contentful-resolve-response/compare/v1.6.5...v1.7.0) (2023-05-05)
 
 
