@@ -21,6 +21,13 @@ describe('Resolve a', function () {
               id: 'someSpaceId',
             },
           },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
         },
         fields: {
           animal: { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' } },
@@ -45,6 +52,13 @@ describe('Resolve a', function () {
               id: 'someSpaceId',
             },
           },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
         },
         fields: {
           animal: { sys: { type: 'Link', linkType: 'Piglet', id: 'oink' } },
@@ -66,6 +80,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },
@@ -124,6 +145,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: { name: 'Parrot' },
         },
@@ -164,6 +192,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: {
             linkField: {
@@ -183,6 +218,13 @@ describe('Resolve a', function () {
                   type: 'Link',
                   linkType: 'Space',
                   id: 'someSpaceId',
+                },
+              },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
                 },
               },
             },
@@ -210,6 +252,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: {
             animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
@@ -225,6 +274,13 @@ describe('Resolve a', function () {
                 type: 'Link',
                 linkType: 'Space',
                 id: 'someSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
               },
             },
           },
@@ -243,6 +299,13 @@ describe('Resolve a', function () {
                   type: 'Link',
                   linkType: 'Space',
                   id: 'someSpaceId',
+                },
+              },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
                 },
               },
             },
@@ -276,6 +339,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: {
             animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
@@ -296,6 +366,13 @@ describe('Resolve a', function () {
                   id: 'someSpaceId',
                 },
               },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
+                },
+              },
             },
             fields: { name: 'Pig', friend: { sys: { type: 'Link', linkType: 'Animal', id: 'parrot' } } },
           },
@@ -309,6 +386,13 @@ describe('Resolve a', function () {
                   type: 'Link',
                   linkType: 'Space',
                   id: 'someSpaceId',
+                },
+              },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
                 },
               },
             },
@@ -344,6 +428,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: {
             linkfield: { sys: { type: 'Link', linkType: 'Entry', id: 'two' } },
@@ -359,6 +450,13 @@ describe('Resolve a', function () {
                 type: 'Link',
                 linkType: 'Space',
                 id: 'someSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
               },
             },
           },
@@ -394,6 +492,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: {
             linkfield: [
@@ -419,6 +524,13 @@ describe('Resolve a', function () {
                   id: 'someSpaceId',
                 },
               },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
+                },
+              },
             },
             fields: {
               linkfield: [{ sys: { type: 'Link', linkType: 'Entry', id: 'A' } }],
@@ -436,6 +548,13 @@ describe('Resolve a', function () {
                   id: 'someSpaceId',
                 },
               },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
+                },
+              },
             },
             fields: {
               linkfield: [{ sys: { type: 'Link', linkType: 'Entry', id: 'X' } }],
@@ -451,6 +570,13 @@ describe('Resolve a', function () {
                   type: 'Link',
                   linkType: 'Space',
                   id: 'someSpaceId',
+                },
+              },
+              environment: {
+                sys: {
+                  id: 'master',
+                  type: 'Link',
+                  linkType: 'Environment',
                 },
               },
             },
@@ -474,7 +600,7 @@ describe('Resolve a', function () {
           id: 'unresolveableId',
         },
       },
-      'unresolvable link stays as unresolved link'
+      'unresolvable link stays as unresolved link',
     )
 
     equal(resolved[0].fields.linkfield[0].sys.type, 'Entry', 'first link type')
@@ -506,6 +632,13 @@ describe('Resolve a', function () {
               id: 'someSpaceId',
             },
           },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
         },
         fields: {
           animal: { sys: { type: 'Link', linkType: 'Animal', id: 'oink' } },
@@ -521,6 +654,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },
@@ -540,6 +680,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },
@@ -567,6 +714,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: {
             name: 'Pig',
@@ -585,6 +739,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: { name: 'Phil' },
         },
@@ -600,6 +761,13 @@ describe('Resolve a', function () {
                 id: 'someSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
           },
           fields: { name: 'Parrot' },
         },
@@ -613,6 +781,13 @@ describe('Resolve a', function () {
                 type: 'Link',
                 linkType: 'Space',
                 id: 'someSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
               },
             },
           },
@@ -634,7 +809,7 @@ describe('Resolve a', function () {
     deepEqual(
       resolved[2].fields.animals['en-US'][0].fields.friend.sys,
       includes.Animal[1].sys,
-      'listed localized groundhog'
+      'listed localized groundhog',
     )
   })
 
@@ -648,6 +823,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
             },
           },
         },
@@ -668,6 +850,13 @@ describe('Resolve a', function () {
                 type: 'Link',
                 linkType: 'Space',
                 id: 'someSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
               },
             },
           },
@@ -733,6 +922,13 @@ describe('Resolve a', function () {
               id: 'someSpaceId',
             },
           },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
         },
         fields: {
           animalJson: { farm: { stables: [{ animal: { sys: { type: 'Link', linkType: 'Entry', id: 'oink' } } }] } },
@@ -750,6 +946,13 @@ describe('Resolve a', function () {
                 type: 'Link',
                 linkType: 'Space',
                 id: 'someSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
               },
             },
           },
@@ -774,6 +977,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },
@@ -812,6 +1022,13 @@ describe('Resolve a', function () {
                 id: 'someOtherSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
             locale: 'en-US',
           },
           fields: {
@@ -838,6 +1055,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },
@@ -883,6 +1107,13 @@ describe('Resolve a', function () {
                 id: 'someOtherSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
             locale: 'en-US',
           },
           fields: {
@@ -900,6 +1131,13 @@ describe('Resolve a', function () {
                 id: 'anotherSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
             locale: 'en-US',
           },
           fields: {
@@ -915,6 +1153,13 @@ describe('Resolve a', function () {
                 type: 'Link',
                 linkType: 'Space',
                 id: 'anotherSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
               },
             },
             locale: 'en-US',
@@ -944,6 +1189,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },
@@ -980,6 +1232,13 @@ describe('Resolve a', function () {
                 id: 'someOtherSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
             locale: 'en-US',
           },
           fields: {
@@ -997,6 +1256,13 @@ describe('Resolve a', function () {
                 id: 'anotherSpaceId',
               },
             },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
             locale: 'de-DE',
           },
           fields: {
@@ -1012,6 +1278,242 @@ describe('Resolve a', function () {
     deepEqual(resolved[0].fields.crossSpaceReference['de-DE'], includes.Entry[1])
   })
 
+  it('resolves resource links with environments', function () {
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          id: 'parent',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
+        },
+        fields: {
+          crossSpaceReference: {
+            'en-US': {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/someOtherSpaceId/environments/staging/entries/oink',
+              },
+            },
+          },
+          crossSpaceReference2: {
+            'en-US': {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/someOtherSpaceId/environments/master/entries/oink',
+              },
+            },
+          },
+          crossSpaceReferenceArray: {
+            'en-US': [
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/someOtherSpaceId/environments/staging/entries/oink',
+                },
+              },
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/anotherSpaceId/environments/preview/entries/oink',
+                },
+              },
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/anotherSpaceId/entries/oink',
+                },
+              },
+            ],
+            'de-DE': [
+              {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/anotherSpaceId/environments/staging/entries/woof',
+                },
+              },
+            ],
+          },
+        },
+      },
+    ]
+    const includes = {
+      Entry: [
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someOtherSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'staging',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig in some other space staging',
+          },
+        },
+        // {
+        //   sys: {
+        //     type: 'Entry',
+        //     id: 'oink',
+        //     space: {
+        //       sys: {
+        //         type: 'Link',
+        //         linkType: 'Space',
+        //         id: 'someOtherSpaceId',
+        //       },
+        //     },
+        //     environment: {
+        //       sys: {
+        //         id: 'master',
+        //         type: 'Link',
+        //         linkType: 'Environment',
+        //       },
+        //     },
+        //     locale: 'en-US',
+        //   },
+        //   fields: {
+        //     name: 'Pig',
+        //   },
+        // },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'someOtherSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig in some other space master',
+          },
+        },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'anotherSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'preview',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig in another space preview',
+          },
+        },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'oink',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'anotherSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'master',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
+            locale: 'en-US',
+          },
+          fields: {
+            name: 'Pig in another space implicit master',
+          },
+        },
+        {
+          sys: {
+            type: 'Entry',
+            id: 'woof',
+            space: {
+              sys: {
+                type: 'Link',
+                linkType: 'Space',
+                id: 'anotherSpaceId',
+              },
+            },
+            environment: {
+              sys: {
+                id: 'staging',
+                type: 'Link',
+                linkType: 'Environment',
+              },
+            },
+            locale: 'de-DE',
+          },
+          fields: {
+            name: 'Dog in another space staging de-DE',
+          },
+        },
+      ],
+    }
+
+    const resolved = resolveResponse({ items, includes })
+
+    deepEqual(resolved[0].fields.crossSpaceReference['en-US'], includes.Entry[0])
+    deepEqual(resolved[0].fields.crossSpaceReference2['en-US'], includes.Entry[1])
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['en-US'][0], includes.Entry[0])
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['en-US'][1], includes.Entry[2])
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['en-US'][2], includes.Entry[3])
+    deepEqual(resolved[0].fields.crossSpaceReferenceArray['de-DE'][0], includes.Entry[4])
+  })
+
   it(`can not resolve entities without sys property`, () => {
     const items = [
       {
@@ -1023,6 +1525,13 @@ describe('Resolve a', function () {
               type: 'Link',
               linkType: 'Space',
               id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
             },
           },
         },

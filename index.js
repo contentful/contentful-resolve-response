@@ -27,8 +27,13 @@ const isResourceLink = (object) => object && object.sys && object.sys.type === '
  * @param {String} sys.space.id
  * @return {string[]}
  */
-const makeEntityMapKeys = (sys) =>
-  sys.space ? [`${sys.type}!${sys.id}`, `${sys.space.sys.id}!${sys.type}!${sys.id}`] : [`${sys.type}!${sys.id}`]
+const makeEntityMapKeys = (sys) => {
+  if (sys.space && sys.environment) {
+    return [`${sys.type}!${sys.id}`, `${sys.space.sys.id}!${sys.environment.sys.id}!${sys.type}!${sys.id}`]
+  }
+
+  return [`${sys.type}!${sys.id}`]
+}
 
 /**
  * Looks up in entityMap
@@ -42,11 +47,30 @@ const makeEntityMapKeys = (sys) =>
  * @return {String}
  */
 const lookupInEntityMap = (entityMap, linkData) => {
-  const { entryId, linkType, spaceId } = linkData
-  if (spaceId) {
-    return entityMap.get(`${spaceId}!${linkType}!${entryId}`)
+  const { entryId, linkType, spaceId, environmentId } = linkData
+
+  if (spaceId && environmentId) {
+    return entityMap.get(`${spaceId}!${environmentId}!${linkType}!${entryId}`)
   }
+
   return entityMap.get(`${linkType}!${entryId}`)
+}
+
+const getIdsFromUrn = (urn) => {
+  const regExp = /.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
+  const regExpWithEnv = /.*:spaces\/([A-Za-z0-9]*)\/environments\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
+
+  if (!regExp.test(urn) && !regExpWithEnv.test(urn)) {
+    return undefined
+  }
+
+  if (regExpWithEnv.test(urn)) {
+    const [_, spaceId, environmentId = 'master', entryId] = urn.match(regExpWithEnv)
+    return { spaceId, environmentId, entryId }
+  } else {
+    const [_, spaceId, entryId] = urn.match(regExp)
+    return { spaceId, environmentId: 'master', entryId }
+  }
 }
 
 /**
@@ -60,14 +84,19 @@ const getResolvedLink = (entityMap, link) => {
   const { type, linkType } = link.sys
   if (type === 'ResourceLink') {
     const { urn } = link.sys
-    const regExp = /.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
-    if (!regExp.test(urn)) {
-      return UNRESOLVED_LINK
-    }
-    const [_, spaceId, entryId] = urn.match(regExp)
+    const { spaceId, environmentId, entryId } = getIdsFromUrn(urn)
     const extractedLinkType = linkType.split(':')[1]
-    return lookupInEntityMap(entityMap, { linkType: extractedLinkType, entryId, spaceId }) || UNRESOLVED_LINK
+
+    return (
+      lookupInEntityMap(entityMap, {
+        linkType: extractedLinkType,
+        entryId,
+        spaceId,
+        environmentId,
+      }) || UNRESOLVED_LINK
+    )
   }
+
   const { id: entryId } = link.sys
   return lookupInEntityMap(entityMap, { linkType, entryId }) || UNRESOLVED_LINK
 }
@@ -155,7 +184,7 @@ const resolveResponse = (response, options) => {
   const responseClone = copy(response)
   const allIncludes = Object.keys(responseClone.includes || {}).reduce(
     (all, type) => [...all, ...response.includes[type]],
-    []
+    [],
   )
 
   const allEntries = [...responseClone.items, ...allIncludes].filter((entity) => Boolean(entity.sys))
@@ -165,7 +194,7 @@ const resolveResponse = (response, options) => {
       const entries = makeEntityMapKeys(entity.sys).map((key) => [key, entity])
       acc.push(...entries)
       return acc
-    }, [])
+    }, []),
   )
 
   allEntries.forEach((item) => {
@@ -177,8 +206,8 @@ const resolveResponse = (response, options) => {
         entryObject,
         (x) => isLink(x) || isResourceLink(x),
         (link) => normalizeLink(entityMap, link, options.removeUnresolved),
-        options.removeUnresolved
-      )
+        options.removeUnresolved,
+      ),
     )
   })
 
