@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/contentful/contentful-resolve-response/compare/v1.7.0...v1.8.0) (2023-08-17)
+
+
+### Bug Fixes
+
+* use one regex to match environment and space ([c41e7d8](https://github.com/contentful/contentful-resolve-response/commit/c41e7d8239b5c1dc84a8841d52b6a49d8065773c))
+
+
+### Features
+
+* resolve with environments ([9bc5af5](https://github.com/contentful/contentful-resolve-response/commit/9bc5af5553386decbf4831d0b2ee8ee635cb861a))
+
 # [1.7.0](https://github.com/contentful/contentful-resolve-response/compare/v1.6.5...v1.7.0) (2023-05-05)
 
 
