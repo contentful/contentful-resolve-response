@@ -57,20 +57,15 @@ const lookupInEntityMap = (entityMap, linkData) => {
 }
 
 const getIdsFromUrn = (urn) => {
-  const regExp = /.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
-  const regExpWithEnv = /.*:spaces\/([A-Za-z0-9]*)\/environments\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
+  const regExp =
+    /.*:spaces\/(?<spaceId>[^/]+)(?:\/environments\/(?<environmentId>[^/]+))?\/entries\/(?<entityId>[^/]+)$/
 
-  if (!regExp.test(urn) && !regExpWithEnv.test(urn)) {
+  if (!regExp.test(urn)) {
     return undefined
   }
 
-  if (regExpWithEnv.test(urn)) {
-    const [_, spaceId, environmentId = 'master', entryId] = urn.match(regExpWithEnv)
-    return { spaceId, environmentId, entryId }
-  } else {
-    const [_, spaceId, entryId] = urn.match(regExp)
-    return { spaceId, environmentId: 'master', entryId }
-  }
+  const [_, spaceId, environmentId = 'master', entryId] = urn.match(regExp)
+  return { spaceId, environmentId, entryId }
 }
 
 /**
