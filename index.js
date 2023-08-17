@@ -57,6 +57,7 @@ const lookupInEntityMap = (entityMap, linkData) => {
 }
 
 const getIdsFromUrn = (urn) => {
+  // TODO: Use the regex in resource-names package when it's public.
   const regExp =
     /.*:spaces\/(?<spaceId>[^/]+)(?:\/environments\/(?<environmentId>[^/]+))?\/entries\/(?<entityId>[^/]+)$/
 
