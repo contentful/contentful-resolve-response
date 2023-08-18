@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/contentful/contentful-resolve-response/compare/v1.8.0...v1.8.1) (2023-08-18)
+
+
+### Bug Fixes
+
+* remove regex named capture group ([057e3d1](https://github.com/contentful/contentful-resolve-response/commit/057e3d176002ecd4d71e522ac17bc841fffcb2f3))
+
 # [1.8.0](https://github.com/contentful/contentful-resolve-response/compare/v1.7.0...v1.8.0) (2023-08-17)
 
 
