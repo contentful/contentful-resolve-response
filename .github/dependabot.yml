@@ -12,6 +12,10 @@ updates:
       prefix: build
       include: scope
     ignore:
+      - dependency-name: "@commitlint/config-conventional"
+        versions:
+          # version 19.x has ESM issues
+          - ">=19.0.0"
       - dependency-name: "chai"
         versions:
           # version 5.x is ESM only
