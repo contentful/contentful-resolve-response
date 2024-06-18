@@ -77,6 +77,10 @@ const getIdsFromUrn = (urn) => {
 const getResolvedLink = (entityMap, link) => {
   const { type, linkType } = link.sys
   if (type === 'ResourceLink') {
+    if (!linkType.startsWith('Contentful:')) {
+      return UNRESOLVED_LINK
+    }
+
     const { urn } = link.sys
     const { spaceId, environmentId, entryId } = getIdsFromUrn(urn)
     const extractedLinkType = linkType.split(':')[1]
