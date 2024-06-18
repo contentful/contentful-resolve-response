@@ -12,6 +12,10 @@ updates:
       prefix: build
       include: scope
     ignore:
+      - dependency-name: "chai"
+        versions:
+          # version 5.x is ESM only
+        - ">=5.0.0"
       - dependency-name: "fast-copy"
           # version 3.x is causing import errors on depending packages
         versions:
