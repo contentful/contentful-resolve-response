@@ -1,3 +1,12 @@
+## [1.8.2](https://github.com/contentful/contentful-resolve-response/compare/v1.8.1...v1.8.2) (2024-06-18)
+
+
+### Bug Fixes
+
+* downgrade commit linter ([8262f6d](https://github.com/contentful/contentful-resolve-response/commit/8262f6ddbadca95102a1f1a44a406ce89161a26b))
+* ignore resource links with unknown provider ([22a663e](https://github.com/contentful/contentful-resolve-response/commit/22a663e6b4d9d1c5e7aebad1af6256118c5bb293))
+* name change ([e5edf02](https://github.com/contentful/contentful-resolve-response/commit/e5edf02093acde87f5e5896dec616d97f1d7635d))
+
 ## [1.8.1](https://github.com/contentful/contentful-resolve-response/compare/v1.8.0...v1.8.1) (2023-08-18)
 
 
