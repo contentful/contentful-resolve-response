@@ -1514,6 +1514,50 @@ describe('Resolve a', function () {
     deepEqual(resolved[0].fields.crossSpaceReferenceArray['de-DE'][0], includes.Entry[4])
   })
 
+  it('skips resource links with unknown provider', function () {
+    const resourceLink = {
+      sys: {
+        type: 'ResourceLink',
+        linkType: 'NotContentful:SomeEntity',
+        urn: 'couldbeanything',
+      },
+    }
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          id: 'parent',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
+        },
+        fields: {
+          unknownReference: {
+            'en-US': resourceLink,
+          },
+        },
+      },
+    ]
+    const includes = {
+      Entry: [{}],
+    }
+
+    const resolved = resolveResponse({ items, includes })
+
+    deepEqual(resolved[0].fields.unknownReference['en-US'], resourceLink)
+  })
+
   it(`can not resolve entities without sys property`, () => {
     const items = [
       {
