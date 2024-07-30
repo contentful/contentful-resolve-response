@@ -78,7 +78,7 @@ const getResolvedLink = (entityMap, link) => {
   const { type, linkType } = link.sys
   if (type === 'ResourceLink') {
     if (!linkType.startsWith('Contentful:')) {
-      return UNRESOLVED_LINK
+      return link
     }
 
     const { urn } = link.sys

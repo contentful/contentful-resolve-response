@@ -180,6 +180,50 @@ describe('Resolve a', function () {
     equal(unresolvedLessons.length, 0, 'Has no unresolved lessons')
   })
 
+  it('response and skips resource links with unknown provider given removeUnresolved: true', function () {
+    const resourceLink = {
+      sys: {
+        type: 'ResourceLink',
+        linkType: 'NotContentful:SomeEntity',
+        urn: 'couldbeanything',
+      },
+    }
+    const items = [
+      {
+        sys: {
+          type: 'Entry',
+          id: 'parent',
+          space: {
+            sys: {
+              type: 'Link',
+              linkType: 'Space',
+              id: 'someSpaceId',
+            },
+          },
+          environment: {
+            sys: {
+              id: 'master',
+              type: 'Link',
+              linkType: 'Environment',
+            },
+          },
+        },
+        fields: {
+          unknownReference: {
+            'en-US': resourceLink,
+          },
+        },
+      },
+    ]
+    const includes = {
+      Entry: [{}],
+    }
+
+    const resolved = resolveResponse({ items, includes }, { removeUnresolved: true })
+
+    deepEqual(resolved[0].fields.unknownReference['en-US'], resourceLink)
+  })
+
   it('response with links matching items from includes should be resolved', function () {
     const response = {
       items: [
