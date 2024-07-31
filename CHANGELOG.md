@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/contentful/contentful-resolve-response/compare/v1.8.2...v1.9.0) (2024-07-31)
+
+
+### Features
+
+* keep resource links with custom provider ([47e9b48](https://github.com/contentful/contentful-resolve-response/commit/47e9b4819cadcedcff6b01d0493edd10c506e1d3))
+
 ## [1.8.2](https://github.com/contentful/contentful-resolve-response/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 
