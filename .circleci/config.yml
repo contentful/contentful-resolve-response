@@ -4,7 +4,7 @@ orbs:
 executors:
   node:
     docker:
-      - image: cimg/node:16.13.2
+      - image: cimg/node:lts
 jobs:
   test:
     executor: node
@@ -26,20 +26,9 @@ jobs:
       - run:
           name: Lint project
           command: npm run lint
-  lint-commits:
-    docker:
-      - image: cimg/node:16.13.2
-    steps:
-      - checkout
-      - run:
-          name: npm ci
-          command: npm ci
-      - run:
-          name: Linting commits
-          command: npm run commitlint-circle
   semantic-release:
     docker:
-      - image: cimg/node:16.13.2
+      - image: cimg/node:lts
     steps:
       - checkout
       - vault/get-secrets: # Loads vault secrets
@@ -55,10 +44,8 @@ workflows:
     jobs:
       - lint
       - test
-      - lint-commits
       - semantic-release:
           context: vault
           requires:
             - lint
             - test
-            - lint-commits

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "forceConsistentCasingInFileNames": false,
+    "strict": false,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist/esm"
+  },
+  "include": ["index.js"],
+  "exclude": ["node_modules", "dist"]
+}

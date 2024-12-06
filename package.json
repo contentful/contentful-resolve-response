@@ -1,20 +1,17 @@
 {
   "name": "contentful-resolve-response",
   "version": "1.1.4",
-  "description": "",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
-  "jsnext:main": "./dist/esm/index.js",
   "scripts": {
-    "build": "BABEL_ENV=cjs babel index.js -d dist/cjs/ && BABEL_ENV=esm babel index.js -d dist/esm/",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "lint": "eslint index.js test",
-    "test": "BABEL_ENV=cjs mocha --require babel-register 'test/**/*-test.js'",
+    "test": "mocha --import=tsx 'test/**/*-test.js'",
     "test-watch": "npm run test -- --watch",
     "precommit": "npm run lint",
     "prepush": "npm run test",
     "prepublishOnly": "npm run build",
     "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
-    "commitlint-circle": "commitlint-circle",
     "semantic-release": "semantic-release"
   },
   "repository": {
@@ -30,28 +27,19 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^18.0.0",
-    "@contentful/eslint-config-backend": "^11.0.2",
+    "@eslint/js": "^9.16.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@timbeyer/commitlint-circle": "^4.1.1",
-    "babel-cli": "^6.26.0",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "chai": "^4.3.6",
     "dirty-chai": "^2.0.1",
     "eslint": "^9.15.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-mocha": "^10.0.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-promise": "^7.2.0",
-    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-mocha": "^10.5.0",
     "husky": "^9.0.6",
     "mocha": "^11.0.1",
     "prettier": "^3.0.0",
-    "semantic-release": "^19.0.5"
+    "semantic-release": "^19.0.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   },
   "files": [
     "dist"
