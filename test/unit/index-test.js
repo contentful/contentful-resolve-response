@@ -131,6 +131,15 @@ describe('Resolve a', function () {
               },
             },
           ],
+          jsonField: {
+            customerProvidedJson: {
+              sys: {
+                type: 'Link',
+                linkType: 'Entry',
+                id: 'shouldNotBeRemoved',
+              },
+            },
+          },
         },
       },
     ]
@@ -170,6 +179,7 @@ describe('Resolve a', function () {
     equal('otherField' in fields, false, 'Unresolvable field called otherField got removed')
     equal(fields.arrayField[0].sys.id, 'Parrot', 'First item in arrayField becomes resolvable Parrot entry')
     equal(fields.arrayField.length, 1, 'Only resolvable entry stays in array field')
+    equal(fields.jsonField.customerProvidedJson.sys.id, 'shouldNotBeRemoved', 'Customer provided JSON field stays')
   })
 
   it('real response and removes unresolveable given removeUnresolved: true', function () {
