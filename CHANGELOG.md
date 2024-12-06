@@ -1,3 +1,11 @@
+## [1.9.1](https://github.com/contentful/contentful-resolve-response/compare/v1.9.0...v1.9.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* don't resolve links inside JSON fields ([bcee530](https://github.com/contentful/contentful-resolve-response/commit/bcee53032c7ae16f2632a1d9719e9de1f1392893))
+* linting ([2bf8ea0](https://github.com/contentful/contentful-resolve-response/commit/2bf8ea0c3aef7f0fbaabd01fc789eb1af60710d8))
+
 # [1.9.0](https://github.com/contentful/contentful-resolve-response/compare/v1.8.2...v1.9.0) (2024-07-31)
 
 
