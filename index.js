@@ -188,13 +188,13 @@ const makeEntryObject = (item, itemEntryPoints) => {
  * Only normalize the top level properties of the entrypoint (e.g. item.fields),
  * as JSON fields can contain values that are objects that look like links, but are not.
  */
-const normalizeFromEntryPoint = (entryPoint, entityMap, removeUnresolved) => {
+const normalizeFromEntryPoint = (entityMap, entryPoint, removeUnresolved) => {
   if (!entryPoint) {
     return undefined
   }
 
   if (Array.isArray(entryPoint)) {
-    return maybeNormalizeLink(entryPoint, entityMap, removeUnresolved)
+    return maybeNormalizeLink(entityMap, entryPoint, removeUnresolved)
   } else if (typeof entryPoint === 'object') {
     return Object.entries(entryPoint).reduce((acc, [key, val]) => {
       const normalizedLink = maybeNormalizeLink(entityMap, val, removeUnresolved)
@@ -238,7 +238,7 @@ const resolveResponse = (response, options) => {
   allEntries.forEach((item) => {
     if (options.itemEntryPoints && options.itemEntryPoints.length) {
       for (const entryPoint of options.itemEntryPoints) {
-        item[entryPoint] = normalizeFromEntryPoint(item[entryPoint], entityMap, options.removeUnresolved)
+        item[entryPoint] = normalizeFromEntryPoint(entityMap, item[entryPoint], options.removeUnresolved)
       }
     } else {
       const entryObject = makeEntryObject(item, options.itemEntryPoints)
