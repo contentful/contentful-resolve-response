@@ -126,15 +126,19 @@ const normalizeLink = (entityMap, link, removeUnresolved) => {
   return resolvedLink
 }
 
-const maybeNormalizeLink = (maybeLink, entityMap, removeUnresolved) => {
+const maybeNormalizeLink = (entityMap, maybeLink, removeUnresolved) => {
   if (Array.isArray(maybeLink)) {
-    maybeLink = maybeLink.map((maybeArrayLink) => maybeNormalizeLink(maybeArrayLink, entityMap, removeUnresolved))
-    if (removeUnresolved) {
-      maybeLink = maybeLink.filter((val) => val !== UNRESOLVED_LINK)
-    }
+    return maybeLink.reduce((acc, link) => {
+      const normalizedLink = maybeNormalizeLink(entityMap, link, removeUnresolved)
+      if (removeUnresolved && normalizedLink === UNRESOLVED_LINK) {
+        return acc
+      }
+      acc.push(normalizedLink)
+      return acc
+    }, [])
   } else if (typeof maybeLink === 'object') {
     if (isLink(maybeLink) || isResourceLink(maybeLink)) {
-      maybeLink = normalizeLink(entityMap, maybeLink, removeUnresolved)
+      return normalizeLink(entityMap, maybeLink, removeUnresolved)
     }
   }
   return maybeLink
@@ -186,19 +190,20 @@ const makeEntryObject = (item, itemEntryPoints) => {
  */
 const normalizeFromEntryPoint = (entryPoint, entityMap, removeUnresolved) => {
   if (!entryPoint) {
-    return
+    return undefined
   }
 
   if (Array.isArray(entryPoint)) {
-    maybeNormalizeLink(entryPoint, entityMap, removeUnresolved)
+    return maybeNormalizeLink(entryPoint, entityMap, removeUnresolved)
   } else if (typeof entryPoint === 'object') {
-    const keys = Object.keys(entryPoint)
-    for (const key of keys) {
-      entryPoint[key] = maybeNormalizeLink(entryPoint[key], entityMap, removeUnresolved)
-      if (removeUnresolved && entryPoint[key] === UNRESOLVED_LINK) {
-        delete entryPoint[key]
+    return Object.entries(entryPoint).reduce((acc, [key, val]) => {
+      const normalizedLink = maybeNormalizeLink(entityMap, val, removeUnresolved)
+      if (removeUnresolved && normalizedLink === UNRESOLVED_LINK) {
+        return acc
       }
-    }
+      acc[key] = normalizedLink
+      return acc
+    }, {})
   }
 }
 
@@ -233,7 +238,7 @@ const resolveResponse = (response, options) => {
   allEntries.forEach((item) => {
     if (options.itemEntryPoints && options.itemEntryPoints.length) {
       for (const entryPoint of options.itemEntryPoints) {
-        normalizeFromEntryPoint(item[entryPoint], entityMap, options.removeUnresolved)
+        item[entryPoint] = normalizeFromEntryPoint(item[entryPoint], entityMap, options.removeUnresolved)
       }
     } else {
       const entryObject = makeEntryObject(item, options.itemEntryPoints)
