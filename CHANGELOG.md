@@ -1,3 +1,11 @@
+## [1.9.2](https://github.com/contentful/contentful-resolve-response/compare/v1.9.1...v1.9.2) (2024-12-09)
+
+
+### Bug Fixes
+
+* ci config ([6cf4985](https://github.com/contentful/contentful-resolve-response/commit/6cf4985af6cfacb5c3677b5d9d9b3928e9c5efe3))
+* prune unused eslint depenedency ([c94ee8c](https://github.com/contentful/contentful-resolve-response/commit/c94ee8cf25294c434cd699c69bade7ba7ca50d58))
+
 ## [1.9.1](https://github.com/contentful/contentful-resolve-response/compare/v1.9.0...v1.9.1) (2024-12-06)
 
 
