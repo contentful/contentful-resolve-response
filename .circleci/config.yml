@@ -8,7 +8,21 @@ executors:
 jobs:
   test:
     executor: node
-	jobs:
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tests
+          command: npm test
+  lint:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
       - run:
           name: Lint project
           command: npm run lint
@@ -18,7 +32,15 @@ jobs:
     steps:
       - checkout
       - vault/get-secrets: # Loads vault secrets
-	workflows:
+          template-preset: 'semantic-release'
+      - run:
+          name: npm ci
+          command: npm ci
+      - run:
+          name: Releasing
+          command: npm run semantic-release
+workflows:
+  test:
     jobs:
       - lint
       - test
