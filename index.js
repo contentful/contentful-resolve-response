@@ -1,16 +1,16 @@
 import copy from 'fast-copy'
 
-const UNRESOLVED_LINK = {} // Unique object to avoid polyfill bloat using Symbol()
+const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol()
 
 /**
- * IsLink Function
+ * isLink Function
  * Checks if the object has sys.type "Link"
  * @param object
  */
 const isLink = (object) => object && object.sys && object.sys.type === 'Link'
 
 /**
- * IsResourceLink Function
+ * isResourceLink Function
  * Checks if the object has sys.type "ResourceLink"
  * @param object
  */
@@ -63,13 +63,12 @@ const getIdsFromUrn = (urn) => {
     return undefined
   }
 
-  // eslint-disable-next-line no-unused-vars
   const [_, spaceId, environmentId = 'master', entryId] = urn.match(regExp)
   return { spaceId, environmentId, entryId }
 }
 
 /**
- * GetResolvedLink Function
+ * getResolvedLink Function
  *
  * @param entityMap
  * @param link
@@ -101,12 +100,12 @@ const getResolvedLink = (entityMap, link) => {
 }
 
 /**
- * CleanUpUnresolvedLinks Function
+ * cleanUpLinks Function
  * - Removes unresolvable links from Arrays and Objects
  *
  * @param {Object[]|Object} input
  */
-const cleanUpUnresolvedLinks = (input) => {
+const cleanUpLinks = (input) => {
   if (Array.isArray(input)) {
     return input.filter((val) => val !== UNRESOLVED_LINK)
   }
@@ -118,34 +117,8 @@ const cleanUpUnresolvedLinks = (input) => {
   return input
 }
 
-const normalizeLink = (entityMap, link, removeUnresolved) => {
-  const resolvedLink = getResolvedLink(entityMap, link)
-  if (resolvedLink === UNRESOLVED_LINK) {
-    return removeUnresolved ? resolvedLink : link
-  }
-  return resolvedLink
-}
-
-const maybeNormalizeLink = (entityMap, maybeLink, removeUnresolved) => {
-  if (Array.isArray(maybeLink)) {
-    return maybeLink.reduce((acc, link) => {
-      const normalizedLink = maybeNormalizeLink(entityMap, link, removeUnresolved)
-      if (removeUnresolved && normalizedLink === UNRESOLVED_LINK) {
-        return acc
-      }
-      acc.push(normalizedLink)
-      return acc
-    }, [])
-  } else if (typeof maybeLink === 'object') {
-    if (isLink(maybeLink) || isResourceLink(maybeLink)) {
-      return normalizeLink(entityMap, maybeLink, removeUnresolved)
-    }
-  }
-  return maybeLink
-}
-
 /**
- * WalkMutate Function
+ * walkMutate Function
  * @param input
  * @param predicate
  * @param mutator
@@ -165,10 +138,18 @@ const walkMutate = (input, predicate, mutator, removeUnresolved) => {
       }
     }
     if (removeUnresolved) {
-      input = cleanUpUnresolvedLinks(input)
+      input = cleanUpLinks(input)
     }
   }
   return input
+}
+
+const normalizeLink = (entityMap, link, removeUnresolved) => {
+  const resolvedLink = getResolvedLink(entityMap, link)
+  if (resolvedLink === UNRESOLVED_LINK) {
+    return removeUnresolved ? resolvedLink : link
+  }
+  return resolvedLink
 }
 
 const makeEntryObject = (item, itemEntryPoints) => {
@@ -185,30 +166,7 @@ const makeEntryObject = (item, itemEntryPoints) => {
 }
 
 /**
- * Only normalize the top level properties of the entrypoint (e.g. item.fields),
- * as JSON fields can contain values that are objects that look like links, but are not.
- */
-const normalizeFromEntryPoint = (entityMap, entryPoint, removeUnresolved) => {
-  if (!entryPoint) {
-    return undefined
-  }
-
-  if (Array.isArray(entryPoint)) {
-    return maybeNormalizeLink(entityMap, entryPoint, removeUnresolved)
-  } else if (typeof entryPoint === 'object') {
-    return Object.entries(entryPoint).reduce((acc, [key, val]) => {
-      const normalizedLink = maybeNormalizeLink(entityMap, val, removeUnresolved)
-      if (removeUnresolved && normalizedLink === UNRESOLVED_LINK) {
-        return acc
-      }
-      acc[key] = normalizedLink
-      return acc
-    }, {})
-  }
-}
-
-/**
- * ResolveResponse Function
+ * resolveResponse Function
  * Resolves contentful response to normalized form.
  * @param {Object} response Contentful response
  * @param {{removeUnresolved: Boolean, itemEntryPoints: Array<String>}|{}} options
@@ -217,7 +175,7 @@ const normalizeFromEntryPoint = (entityMap, entryPoint, removeUnresolved) => {
  * @return {Object}
  */
 const resolveResponse = (response, options) => {
-  options ||= {}
+  options = options || {}
   if (!response.items) {
     return []
   }
@@ -226,7 +184,9 @@ const resolveResponse = (response, options) => {
     (all, type) => [...all, ...response.includes[type]],
     [],
   )
+
   const allEntries = [...responseClone.items, ...allIncludes].filter((entity) => Boolean(entity.sys))
+
   const entityMap = new Map(
     allEntries.reduce((acc, entity) => {
       const entries = makeEntityMapKeys(entity.sys).map((key) => [key, entity])
@@ -236,23 +196,17 @@ const resolveResponse = (response, options) => {
   )
 
   allEntries.forEach((item) => {
-    if (options.itemEntryPoints && options.itemEntryPoints.length) {
-      for (const entryPoint of options.itemEntryPoints) {
-        item[entryPoint] = normalizeFromEntryPoint(entityMap, item[entryPoint], options.removeUnresolved)
-      }
-    } else {
-      const entryObject = makeEntryObject(item, options.itemEntryPoints)
+    const entryObject = makeEntryObject(item, options.itemEntryPoints)
 
-      Object.assign(
-        item,
-        walkMutate(
-          entryObject,
-          (x) => isLink(x) || isResourceLink(x),
-          (link) => normalizeLink(entityMap, link, options.removeUnresolved),
-          options.removeUnresolved,
-        ),
-      )
-    }
+    Object.assign(
+      item,
+      walkMutate(
+        entryObject,
+        (x) => isLink(x) || isResourceLink(x),
+        (link) => normalizeLink(entityMap, link, options.removeUnresolved),
+        options.removeUnresolved,
+      ),
+    )
   })
 
   return responseClone.items

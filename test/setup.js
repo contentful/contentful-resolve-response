@@ -1,4 +1,6 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
+'use strict'
+
+const chai = require('chai')
+const dirtyChai = require('dirty-chai')
 
 chai.use(dirtyChai)

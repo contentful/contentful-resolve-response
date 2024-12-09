@@ -1,8 +1,5 @@
-import { assert } from 'chai'
-import resolveResponse from '../../index'
-import realResponse from './real-response.json'
-
-const { deepEqual, notEqual, equal, notDeepEqual } = assert
+const { deepEqual, notEqual, equal, notDeepEqual } = require('chai').assert
+const resolveResponse = require('../../index')
 
 describe('Resolve a', function () {
   it('empty response which returns an empty response', function () {
@@ -131,15 +128,6 @@ describe('Resolve a', function () {
               },
             },
           ],
-          jsonField: {
-            customerProvidedJson: {
-              sys: {
-                type: 'Link',
-                linkType: 'Entry',
-                id: 'shouldNotBeRemoved',
-              },
-            },
-          },
         },
       },
     ]
@@ -179,11 +167,11 @@ describe('Resolve a', function () {
     equal('otherField' in fields, false, 'Unresolvable field called otherField got removed')
     equal(fields.arrayField[0].sys.id, 'Parrot', 'First item in arrayField becomes resolvable Parrot entry')
     equal(fields.arrayField.length, 1, 'Only resolvable entry stays in array field')
-    equal(fields.jsonField.customerProvidedJson.sys.id, 'shouldNotBeRemoved', 'Customer provided JSON field stays')
   })
 
   it('real response and removes unresolveable given removeUnresolved: true', function () {
-    const resolved = resolveResponse(realResponse, { removeUnresolved: true, itemEntryPoints: ['fields'] })
+    const response = require('./real-response.json')
+    const resolved = resolveResponse(response, { removeUnresolved: true, itemEntryPoints: ['fields'] })
     const sys = resolved[0].sys
     const fields = resolved[0].fields
     notEqual(sys.space, undefined, 'Space is not removed')
@@ -1614,7 +1602,7 @@ describe('Resolve a', function () {
     deepEqual(resolved[0].fields.unknownReference['en-US'], resourceLink)
   })
 
-  it(`can not resolve entities without sys property`, function () {
+  it(`can not resolve entities without sys property`, () => {
     const items = [
       {
         sys: {
