@@ -1,5 +1,8 @@
-const { deepEqual, notEqual, equal, notDeepEqual } = require('chai').assert
-const resolveResponse = require('../../index')
+import { assert } from 'chai'
+import resolveResponse from '../../index'
+import realResponse from './real-response.json'
+
+const { deepEqual, notEqual, equal, notDeepEqual } = assert
 
 describe('Resolve a', function () {
   it('empty response which returns an empty response', function () {
@@ -170,8 +173,7 @@ describe('Resolve a', function () {
   })
 
   it('real response and removes unresolveable given removeUnresolved: true', function () {
-    const response = require('./real-response.json')
-    const resolved = resolveResponse(response, { removeUnresolved: true, itemEntryPoints: ['fields'] })
+    const resolved = resolveResponse(realResponse, { removeUnresolved: true, itemEntryPoints: ['fields'] })
     const sys = resolved[0].sys
     const fields = resolved[0].fields
     notEqual(sys.space, undefined, 'Space is not removed')
@@ -1602,7 +1604,7 @@ describe('Resolve a', function () {
     deepEqual(resolved[0].fields.unknownReference['en-US'], resourceLink)
   })
 
-  it(`can not resolve entities without sys property`, () => {
+  it(`can not resolve entities without sys property`, function () {
     const items = [
       {
         sys: {

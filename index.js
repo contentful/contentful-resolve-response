@@ -63,6 +63,7 @@ const getIdsFromUrn = (urn) => {
     return undefined
   }
 
+  // eslint-disable-next-line no-unused-vars
   const [_, spaceId, environmentId = 'master', entryId] = urn.match(regExp)
   return { spaceId, environmentId, entryId }
 }
