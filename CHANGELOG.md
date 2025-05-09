@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/contentful/contentful-resolve-response/compare/v1.9.2...v1.9.3) (2025-05-09)
+
+
+### Bug Fixes
+
+* update eslint-plugin-mocha config structure [DX-90] ([938ca7b](https://github.com/contentful/contentful-resolve-response/commit/938ca7bf0c619dad76e830ec524752d6dfb1ad97))
+
 ## [1.9.2](https://github.com/contentful/contentful-resolve-response/compare/v1.9.1...v1.9.2) (2024-12-09)
 
 
