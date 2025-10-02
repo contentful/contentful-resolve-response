@@ -8,7 +8,7 @@ object graph.
 
 `contentful-resolve-response` does just that:
 
-``` js
+```js
 var resolveResponse = require('contentful-resolve-response');
 
 var response = {
