@@ -44,7 +44,7 @@
     "husky": "^9.0.6",
     "mocha": "^11.0.1",
     "prettier": "^3.0.0",
-    "semantic-release": "^19.0.5"
+    "semantic-release": "^25.0.2"
   },
   "files": [
     "dist"
