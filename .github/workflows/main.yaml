@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/check.yaml
 
   release:
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/DX-545-gha-publishing')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/DX-545-gha-publishing')
     needs: [build, check]
     permissions:
       contents: write
