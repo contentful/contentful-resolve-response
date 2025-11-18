@@ -1,6 +1,7 @@
 # contentful-resolve-response
 
 [![npm](https://img.shields.io/npm/v/contentful-resolve-response.svg)](https://www.npmjs.com/package/contentful-resolve-response)
+[![CI](https://github.com/contentful/contentful-resolve-response/actions/workflows/main.yaml/badge.svg)](https://github.com/contentful/contentful-resolve-response/actions/workflows/main.yaml)
 
 Suppose you have a Contentful query's response JSON. The links are
 nice, but what we really usually need is the response with a resolved
