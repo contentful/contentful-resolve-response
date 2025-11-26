@@ -27,3 +27,6 @@ updates:
       - dependency-name: "semantic-release"
         versions:
         - ">=20.0.0"
+
+    cooldown:
+      default-days: 15
