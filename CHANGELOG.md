@@ -1,3 +1,10 @@
+## [1.9.5-update-pipeline.1](https://github.com/contentful/contentful-resolve-response/compare/v1.9.4...v1.9.5-update-pipeline.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* update scripts ([a2e29b1](https://github.com/contentful/contentful-resolve-response/commit/a2e29b1a27df8004300633bc65bb9eb67e5e0568))
+
 ## [1.9.4](https://github.com/contentful/contentful-resolve-response/compare/v1.9.3...v1.9.4) (2025-10-02)
 
 ## [1.9.3](https://github.com/contentful/contentful-resolve-response/compare/v1.9.2...v1.9.3) (2025-05-09)
