@@ -10,12 +10,11 @@
     "lint": "eslint index.js test",
     "test": "BABEL_ENV=cjs mocha --require babel-register 'test/**/*-test.js'",
     "test-watch": "npm run test -- --watch",
-    "precommit": "npm run lint",
-    "prepush": "npm run test",
-    "prepublishOnly": "npm run build",
-    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
+    "format:fix": "npm run format:check -- --write",
+    "format:check": "prettier --check \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
     "commitlint-circle": "commitlint-circle",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -42,6 +41,7 @@
     "eslint": "^9.15.0",
     "eslint-plugin-mocha": "^11.0.0",
     "husky": "^9.0.6",
+    "lint-staged": "^16.2.7",
     "mocha": "^11.0.1",
     "prettier": "^3.0.0",
     "semantic-release": "^25.0.2"
@@ -60,7 +60,34 @@
       "@commitlint/config-conventional"
     ]
   },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
   "release": {
+    "branches": [
+      "master",
+      {
+        "name": "beta",
+        "channel": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "update-pipeline",
+        "channel": "dev",
+        "prerelease": true
+      },
+      {
+        "name": "dev",
+        "channel": "dev",
+        "prerelease": true
+      }
+    ],
     "plugins": [
       [
         "@semantic-release/commit-analyzer",
