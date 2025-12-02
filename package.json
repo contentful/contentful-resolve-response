@@ -1,6 +1,6 @@
 {
   "name": "contentful-resolve-response",
-  "version": "1.1.4", 
+  "version": "1.1.4",
   "description": "",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -61,7 +61,7 @@
     ]
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{js,ts,json}": [
       "prettier --write",
       "eslint --fix"
     ],
