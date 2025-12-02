@@ -78,11 +78,6 @@
         "prerelease": true
       },
       {
-        "name": "update-pipeline",
-        "channel": "dev",
-        "prerelease": true
-      },
-      {
         "name": "dev",
         "channel": "dev",
         "prerelease": true

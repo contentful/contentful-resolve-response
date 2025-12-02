@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/check.yaml
 
   release:
-    if: github.event_name == 'push' && contains(fromJSON('["refs/heads/master", "refs/heads/beta", "refs/heads/update-pipeline", "refs/heads/dev"]'), github.ref)
+    if: github.event_name == 'push' && contains(fromJSON('["refs/heads/master", "refs/heads/beta", "refs/heads/dev"]'), github.ref)
     needs: [build, check]
     permissions:
       contents: write
