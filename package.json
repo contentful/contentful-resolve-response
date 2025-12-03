@@ -13,8 +13,7 @@
     "format:fix": "npm run format:check -- --write",
     "format:check": "prettier --check \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
     "commitlint-circle": "commitlint-circle",
-    "semantic-release": "semantic-release",
-    "prepare": "husky"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
