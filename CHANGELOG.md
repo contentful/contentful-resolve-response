@@ -1,3 +1,5 @@
+## [1.9.5](https://github.com/contentful/contentful-resolve-response/compare/v1.9.4...v1.9.5) (2026-01-09)
+
 ## [1.9.4](https://github.com/contentful/contentful-resolve-response/compare/v1.9.3...v1.9.4) (2025-10-02)
 
 ## [1.9.3](https://github.com/contentful/contentful-resolve-response/compare/v1.9.2...v1.9.3) (2025-05-09)
