@@ -10,10 +10,8 @@
     "lint": "eslint index.js test",
     "test": "BABEL_ENV=cjs mocha --require babel-register 'test/**/*-test.js'",
     "test-watch": "npm run test -- --watch",
-    "precommit": "npm run lint",
-    "prepush": "npm run test",
-    "prepublishOnly": "npm run build",
-    "format": "prettier --config ./.prettierrc --write \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
+    "format:fix": "npm run format:check -- --write",
+    "format:check": "prettier --check \"{*.js,**/*.js,*.ts,**/*.ts,*.json,**/*.json}\"",
     "commitlint-circle": "commitlint-circle",
     "semantic-release": "semantic-release"
   },
@@ -25,33 +23,27 @@
     "node": ">=4.7.2"
   },
   "dependencies": {
-    "fast-copy": "^2.1.7"
+    "fast-copy": "^3.0.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.0",
-    "@commitlint/config-conventional": "^17.4.0",
-    "@contentful/eslint-config-backend": "^10.0.0",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
+    "@eslint/js": "^10.0.1",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@timbeyer/commitlint-circle": "^4.1.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.3.6",
     "dirty-chai": "^2.0.1",
-    "eslint": "^8.9.0",
-    "eslint-config-prettier": "^8.4.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-mocha": "^10.0.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-standard": "^5.0.0",
-    "husky": "^8.0.0",
-    "mocha": "^10.0.0",
-    "prettier": "^2.5.1",
-    "semantic-release": "^19.0.5"
+    "eslint": "^10.0.0",
+    "eslint-plugin-mocha": "^11.0.0",
+    "husky": "^9.0.6",
+    "lint-staged": "^16.2.6",
+    "mocha": "^11.0.1",
+    "prettier": "^3.0.0",
+    "semantic-release": "^25.0.2"
   },
   "files": [
     "dist"
@@ -67,7 +59,29 @@
       "@commitlint/config-conventional"
     ]
   },
+  "lint-staged": {
+    "*.{js,ts,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
   "release": {
+    "branches": [
+      "master",
+      {
+        "name": "beta",
+        "channel": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "dev",
+        "channel": "dev",
+        "prerelease": true
+      }
+    ],
     "plugins": [
       [
         "@semantic-release/commit-analyzer",

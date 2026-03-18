@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: contentful-resolve-response
+  description: |
+    Resolve items & includes of a Contentful API response into a proper object graph
+  annotations:
+    circleci.com/project-slug: github/contentful/contentful-resolve-response
+    github.com/project-slug: contentful/contentful-resolve-response
+    contentful.com/ci-alert-slack: prd-ecosystem-dx-bots
+    contentful.com/service-tier: "4"
+  tags:
+    - tier-4
+spec:
+  type: library
+  lifecycle: production
+  owner: group:team-developer-experience

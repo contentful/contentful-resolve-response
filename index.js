@@ -27,8 +27,13 @@ const isResourceLink = (object) => object && object.sys && object.sys.type === '
  * @param {String} sys.space.id
  * @return {string[]}
  */
-const makeEntityMapKeys = (sys) =>
-  sys.space ? [`${sys.type}!${sys.id}`, `${sys.space.sys.id}!${sys.type}!${sys.id}`] : [`${sys.type}!${sys.id}`]
+const makeEntityMapKeys = (sys) => {
+  if (sys.space && sys.environment) {
+    return [`${sys.type}!${sys.id}`, `${sys.space.sys.id}!${sys.environment.sys.id}!${sys.type}!${sys.id}`]
+  }
+
+  return [`${sys.type}!${sys.id}`]
+}
 
 /**
  * Looks up in entityMap
@@ -42,11 +47,25 @@ const makeEntityMapKeys = (sys) =>
  * @return {String}
  */
 const lookupInEntityMap = (entityMap, linkData) => {
-  const { entryId, linkType, spaceId } = linkData
-  if (spaceId) {
-    return entityMap.get(`${spaceId}!${linkType}!${entryId}`)
+  const { entryId, linkType, spaceId, environmentId } = linkData
+
+  if (spaceId && environmentId) {
+    return entityMap.get(`${spaceId}!${environmentId}!${linkType}!${entryId}`)
   }
+
   return entityMap.get(`${linkType}!${entryId}`)
+}
+
+const getIdsFromUrn = (urn) => {
+  const regExp = /.*:spaces\/([^/]+)(?:\/environments\/([^/]+))?\/entries\/([^/]+)$/
+
+  if (!regExp.test(urn)) {
+    return undefined
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  const [_, spaceId, environmentId = 'master', entryId] = urn.match(regExp)
+  return { spaceId, environmentId, entryId }
 }
 
 /**
@@ -59,15 +78,24 @@ const lookupInEntityMap = (entityMap, linkData) => {
 const getResolvedLink = (entityMap, link) => {
   const { type, linkType } = link.sys
   if (type === 'ResourceLink') {
-    const { urn } = link.sys
-    const regExp = /.*:spaces\/([A-Za-z0-9]*)\/entries\/([A-Za-z0-9]*)/
-    if (!regExp.test(urn)) {
-      return UNRESOLVED_LINK
+    if (!linkType.startsWith('Contentful:')) {
+      return link
     }
-    const [_, spaceId, entryId] = urn.match(regExp)
+
+    const { urn } = link.sys
+    const { spaceId, environmentId, entryId } = getIdsFromUrn(urn)
     const extractedLinkType = linkType.split(':')[1]
-    return lookupInEntityMap(entityMap, { linkType: extractedLinkType, entryId, spaceId }) || UNRESOLVED_LINK
+
+    return (
+      lookupInEntityMap(entityMap, {
+        linkType: extractedLinkType,
+        entryId,
+        spaceId,
+        environmentId,
+      }) || UNRESOLVED_LINK
+    )
   }
+
   const { id: entryId } = link.sys
   return lookupInEntityMap(entityMap, { linkType, entryId }) || UNRESOLVED_LINK
 }
@@ -165,7 +193,7 @@ const resolveResponse = (response, options) => {
       const entries = makeEntityMapKeys(entity.sys).map((key) => [key, entity])
       acc.push(...entries)
       return acc
-    }, [])
+    }, []),
   )
 
   allEntries.forEach((item) => {
@@ -177,8 +205,8 @@ const resolveResponse = (response, options) => {
         entryObject,
         (x) => isLink(x) || isResourceLink(x),
         (link) => normalizeLink(entityMap, link, options.removeUnresolved),
-        options.removeUnresolved
-      )
+        options.removeUnresolved,
+      ),
     )
   })
 
