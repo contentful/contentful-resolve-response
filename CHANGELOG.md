@@ -1,3 +1,11 @@
+## [1.9.8](https://github.com/contentful/contentful-resolve-response/compare/v1.9.7...v1.9.8) (2026-03-18)
+
+
+### Bug Fixes
+
+* **lint:** remove whitespace and linting error from test ([5012d70](https://github.com/contentful/contentful-resolve-response/commit/5012d7094235eb55b3b4d1ae56568ac8d5c6c137))
+* resolveResponse() should only use responseClone to avoid mutating original response object ([f04c973](https://github.com/contentful/contentful-resolve-response/commit/f04c9737bbc00ca2b1b96a195b389477a2969a9c))
+
 ## [1.9.7](https://github.com/contentful/contentful-resolve-response/compare/v1.9.6...v1.9.7) (2026-03-17)
 
 ## [1.9.6](https://github.com/contentful/contentful-resolve-response/compare/v1.9.5...v1.9.6) (2026-02-23)
