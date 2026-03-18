@@ -182,7 +182,7 @@ const resolveResponse = (response, options) => {
   }
   const responseClone = copy(response)
   const allIncludes = Object.keys(responseClone.includes || {}).reduce(
-    (all, type) => [...all, ...response.includes[type]],
+    (all, type) => [...all, ...responseClone.includes[type]],
     [],
   )
 
