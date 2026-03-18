@@ -1,10 +1,10 @@
-
-import { assert } from chai;
+import chai from 'chai'
 import resolveResponse from '../../index'
 import realResponse from './real-response.json'
 import { deepFreeze } from './deep-freeze'
 import copy from 'fast-copy'
 
+const { assert } = chai
 const { deepEqual, notEqual, equal, notDeepEqual, doesNotThrow } = assert
 
 describe('Resolve a', function () {
@@ -845,6 +845,7 @@ describe('Resolve a', function () {
       ],
     },
   }
+
   it('response with links should resolve complex references between items and includes', function () {
     const resolved = resolveResponse(example)
     const { includes } = example

@@ -183,7 +183,7 @@ const resolveResponse = (response, options) => {
   const responseClone = copy(response)
   const allIncludes = Object.keys(responseClone.includes || {}).reduce(
     (all, type) => [...all, ...responseClone.includes[type]],
-    []
+    [],
   )
 
   const allEntries = [...responseClone.items, ...allIncludes].filter((entity) => Boolean(entity.sys))
