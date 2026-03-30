@@ -36,7 +36,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.3.6",
-    "dirty-chai": "^2.0.1",
+    "dirty-chai": "^3.0.0",
     "eslint": "^10.0.0",
     "eslint-plugin-mocha": "^11.0.0",
     "husky": "^9.0.6",
