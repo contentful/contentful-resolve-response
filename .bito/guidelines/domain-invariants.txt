@@ -1,0 +1,19 @@
+Critical technical invariants for contentful-resolve-response:
+
+1. INPUT IMMUTABILITY: The library MUST deep-copy the input response before any mutation. The caller's original object must never be modified. This is enforced by the deep-freeze test.
+
+2. UNRESOLVED_LINK SENTINEL: Uses a unique empty object reference (not null, not undefined, not Symbol) as a sentinel for unresolved links. This avoids polyfill requirements. Never replace with Symbol or null.
+
+3. ENTITY MAP KEY FORMAT: Keys are "{type}!{id}" for same-space and "{spaceId}!{environmentId}!{type}!{id}" for cross-space lookups. Changing this format breaks resolution.
+
+4. RESOURCE LINK PROVIDER PASSTHROUGH: Only links with "Contentful:" prefix in linkType are resolved. All other providers (e.g., "NotContentful:SomeEntity") must be passed through unchanged — never removed, never resolved.
+
+5. CIRCULAR REFERENCE SUPPORT: The library supports circular references by design. Resolution replaces links with object references from the entity map, allowing natural cycles. Never add cycle detection that breaks this.
+
+6. removeUnresolved SCOPE: When removeUnresolved is true, it removes unresolvable links from BOTH arrays (filter) and objects (delete key). When combined with itemEntryPoints, only the specified entry points are walked — sys metadata is preserved.
+
+7. SINGLE FILE ARCHITECTURE: All logic lives in index.js. The library is intentionally simple. Adding files or abstraction layers changes the maintenance profile significantly.
+
+8. DUAL BUILD OUTPUT: dist/cjs/ and dist/esm/ must both be generated. Package.json "main" points to CJS, "module" points to ESM. Both must work after any change.
+
+9. BACKWARD COMPATIBILITY: This is a transitive dependency of contentful.js used by thousands of projects. Any behavioral change, even in edge cases, can break downstream consumers silently.
