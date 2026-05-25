@@ -26,7 +26,7 @@
     "fast-copy": "^3.0.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.0.0",
+    "@commitlint/cli": "^21.0.0",
     "@commitlint/config-conventional": "^18.0.0",
     "@eslint/js": "^10.0.1",
     "@semantic-release/changelog": "^6.0.1",
