@@ -20,7 +20,7 @@
     "url": "git@github.com:contentful/contentful-resolve-response.git"
   },
   "engines": {
-    "node": ">=4.7.2"
+    "node": ">=22"
   },
   "dependencies": {
     "fast-copy": "^3.0.2"
@@ -87,6 +87,10 @@
         "@semantic-release/commit-analyzer",
         {
           "releaseRules": [
+            {
+              "breaking": true,
+              "release": "major"
+            },
             {
               "type": "build",
               "scope": "deps",
