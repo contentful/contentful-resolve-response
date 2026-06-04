@@ -2,7 +2,7 @@
   "env": {
     "esm": {
       "presets": [
-        ["env", {
+        ["@babel/preset-env", {
           "targets": {
             "browsers": [
               "last 2 versions"
@@ -14,7 +14,7 @@
     },
     "cjs": {
       "presets": [
-        ["env", {
+        ["@babel/preset-env", {
           "targets": {
             "node": "4.7.2"
           }
