@@ -1,3 +1,18 @@
+# [2.0.0](https://github.com/contentful/contentful-resolve-response/compare/v1.9.9...v2.0.0) (2026-06-05)
+
+
+* feat!: upgrade minimum Node.js requirement to v22 ([dab6de8](https://github.com/contentful/contentful-resolve-response/commit/dab6de883d8e951e71d6772b2e2c20fe42020185))
+* Merge pull request [#548](https://github.com/contentful/contentful-resolve-response/issues/548) from contentful/update-node-24 ([f28447b](https://github.com/contentful/contentful-resolve-response/commit/f28447bcc87f2a07508bd63d6e1c1d117c825e1e))
+
+
+### BREAKING CHANGES
+
+* drop support for node <= 22
+* CJS build output and runtime now target Node >=22. Consumers
+running older Node versions may encounter syntax errors in the distributed bundle.
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+
 ## [1.9.9](https://github.com/contentful/contentful-resolve-response/compare/v1.9.8...v1.9.9) (2026-06-04)
 
 ## [1.9.8](https://github.com/contentful/contentful-resolve-response/compare/v1.9.7...v1.9.8) (2026-03-18)
