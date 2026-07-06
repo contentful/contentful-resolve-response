@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>contentful/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["@commitlint/config-conventional"],
+      "allowedVersions": "< 19",
+      "description": "version 19.x has ESM issues"
+    },
+    {
+      "matchPackageNames": ["chai"],
+      "allowedVersions": "< 5",
+      "description": "version 5.x is ESM only"
+    },
+    {
+      "matchPackageNames": ["fast-copy"],
+      "allowedVersions": "< 3",
+      "description": "version 3.x is causing import errors on depending packages"
+    },
+    {
+      "matchPackageNames": ["semantic-release"],
+      "allowedVersions": "< 20"
+    }
+  ]
+}
