@@ -14,8 +14,7 @@
     },
     {
       "matchPackageNames": ["fast-copy"],
-      "allowedVersions": "< 4",
-      "description": "v4 changed to named export only — requires a usage audit before upgrading"
+      "allowedVersions": "< 4"
     },
     {
       "matchPackageNames": ["semantic-release"],
