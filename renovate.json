@@ -13,6 +13,11 @@
       "description": "version 5.x is ESM only"
     },
     {
+      "matchPackageNames": ["fast-copy"],
+      "allowedVersions": "< 4",
+      "description": "v4 changed to named export only — requires a usage audit before upgrading"
+    },
+    {
       "matchPackageNames": ["semantic-release"],
       "allowedVersions": "< 26"
     }
