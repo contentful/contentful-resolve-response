@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/contentful/contentful-resolve-response/compare/v2.0.0...v2.0.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* drop stale fast-copy constraint, cap semantic-release to current major ([8ca28e9](https://github.com/contentful/contentful-resolve-response/commit/8ca28e96cdd35ac52c85256e5440017f97ee1c05))
+
 # [2.0.0](https://github.com/contentful/contentful-resolve-response/compare/v1.9.9...v2.0.0) (2026-06-05)
 
 
