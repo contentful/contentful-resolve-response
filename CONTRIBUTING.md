@@ -126,7 +126,7 @@ Releases are fully automated via **semantic-release** on push to `master`, `beta
 
 - PR title should follow conventional commit format
 - Required checks: build, lint, format, tests (all in CI)
-- All code owned by `@contentful/team-developer-experience` (see `CODEOWNERS`)
+- All code owned by `@contentful/group-applied-ai-solutions` (see `CODEOWNERS`)
 - Dependabot PRs are auto-approved and merged when checks pass
 
 ## CI/CD
